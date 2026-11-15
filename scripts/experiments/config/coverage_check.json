@@ -1,0 +1,130 @@
+{
+ "run_id": "coverage_check",
+ "protocol_version": 1,
+ "frozen_at_utc": "2026-11-03T12:38:11.092383+00:00",
+ "authorization_verbatim": [],
+ "scope": "M1 feasibility check only: one local text-only model judgment per deleted caption; frozen exports unchanged; hypothetical arithmetic only.",
+ "input_contract": {
+  "noisy_pool_run": "resources/runs/caption_pilot",
+  "noisy_pool_files": [
+   "a_audit_units.json",
+   "coverage_by_caption.jsonl",
+   "a_audit_1/*_input.json",
+   "a_records.jsonl",
+   "a_exports.jsonl"
+  ],
+  "noisy_pool_completed_audits": "a_audit_2 (auditor_1 is prompt provenance only; incomplete run)",
+  "retained_audit_report": "outputs/reports/retained_set/main_config",
+  "retained_audit_files": [
+   "audit_cells.jsonl",
+   "audit_1.jsonl",
+   "audit_2.jsonl",
+   "agreement.jsonl"
+  ],
+  "retained_audit_records": "resources/runs/retained_set/retained_set/frozen_inputs.json",
+  "retained_audit_source_resolution": "Top-level retained_set files are historical HGB K8 (224/17 deletions); named 187/28 population is the documented LR K5 v2 main configuration. Use v2 explicitly.",
+  "groups": [
+   "noisy_pool_a",
+   "retained_audit_a",
+   "retained_audit_b"
+  ],
+  "unit": "one deletion within group; RETAINED_AUDIT_RUN joins by cell_id, not unit_id; no cross-strategy deduplication",
+  "text": "Full original source caption and all complete retained captions from that unit. Pending excluded. No truncation, images, scores, strategy names, labels, reasons or IDs sent to model.",
+  "serialization": "prompt_prefix + json.dumps({deleted_caption: text, retained_captions: [text,...]}, ensure_ascii=False); one user message; tokenizer.apply_chat_template(tokenize=False,add_generation_prompt=True)"
+ },
+ "noisy_pool_original_prompt_prefix_verbatim": "For each deleted caption, decide whether ALL its stated visual facts are explicitly supported by the supplied final retained captions, individually or jointly. Paraphrases count. A fact merely plausible from world knowledge does not count. Only captions are supplied: do not infer additional facts from an imagined image. Missing details, changed counts, entities, actions, attributes or relations mean false. If the text is ambiguous use null. Judge each deleted caption independently against its own retained list. Return only JSON {\"labels\":[{\"deleted_id\":\"...\",\"covered\":true/false/null,\"reason\":\"one short sentence\"}]}. Include every deleted_id exactly once. ",
+ "prompt_prefix": "Decide whether ALL stated visual facts in the deleted caption are explicitly supported by the supplied final retained captions, individually or jointly. Paraphrases count. A fact merely plausible from world knowledge does not count. Only captions are supplied: do not infer additional facts from an imagined image. Missing details, changed counts, entities, actions, attributes or relations mean false. If the text is ambiguous use null. Judge this deleted caption independently against its own complete retained list. Return only JSON {\"covered\":true/false/null,\"reason\":\"one short sentence\"}. Input:\n",
+ "model": {
+  "name": "Qwen2.5-VL-7B-Instruct",
+  "path": "resources/models/Qwen2.5-VL-7B-Instruct",
+  "backend": "vLLM 0.11.0",
+  "dependency_site": "resources/envs/vllm-n3/lib/python3.10/site-packages",
+  "dtype": "float16",
+  "tensor_parallel_size": 1,
+  "max_model_len": 8192,
+  "max_num_seqs": 4,
+  "max_num_batched_tokens": 4096,
+  "gpu_memory_utilization": 0.92,
+  "enforce_eager": true,
+  "enable_chunked_prefill": true,
+  "seed": 0
+ },
+ "decoding": {
+  "temperature": 0,
+  "top_p": 1.0,
+  "max_tokens": 384,
+  "n": 1,
+  "retry": 0,
+  "batch_size": 16,
+  "output_contract": "Entire response must be JSON object (optional surrounding markdown JSON fence); exactly covered bool/null plus nonempty one-sentence reason. No substring repair. Token-limit outputs invalid even if parseable. Valid null is abstention, not invalid.",
+  "runtime_failure": "Preserve raw completed outputs, stop and report; no prompt change or automatic retry."
+ },
+ "gates": {
+  "noisy_pool_a": {
+   "deletions": 645,
+   "strict_covered": 92,
+   "loose_covered": 132
+  },
+  "retained_audit_a": {
+   "deletions": 187,
+   "strict_lost": 70,
+   "loose_lost": 141
+  },
+  "retained_audit_b": {
+   "deletions": 28,
+   "strict_lost": 5,
+   "loose_lost": 15
+  },
+  "failure": "Stop on any mismatch before GPU. Independently count labels and verify unit/record/export membership; never reconcile toward expectations."
+ },
+ "references": {
+  "kind": "Existing two independent AI auditor labels, not human ground truth. No human labels added.",
+  "noisy_pool_a": {
+   "auditor_input": "text only",
+   "covered": "votes bool; null stays unknown"
+  },
+  "retained_audit_a_and_b": {
+   "auditor_input": "source and full retained set text plus images",
+   "covered": "covered_single or covered_joint -> true; lost -> false; uncertain -> null",
+   "limitation": "RETAINED_AUDIT_RUN final multimodal retained-set judgment differs from COVERAGE_CHECK_RUN text entailment; disagreement may reflect input and criterion differences."
+  }
+ },
+ "metrics": {
+  "agreement": "On both non-null auditor binary labels equal: accuracy and binary Cohen kappa for model non-null valid outputs; also give all consensus units, valid denominator, abstentions/invalids, and all-unit match fraction (abstentions do not match). Kappa null if expected agreement=1.",
+  "positive": "not covered",
+  "strict_positive": "both auditors explicitly false/lost",
+  "loose_positive": "at least one auditor explicitly false/lost",
+  "primary_precision_recall": "On common subset with both auditors non-null and model valid non-null, compute separate strict and loose confusion counts and P/R; zero denominator -> null. Report excluded null/invalid units and positives.",
+  "supplementary_observed_membership": "Also report P/R on all model valid non-null units using strict/loose observed-positive membership, including auditor-null rows; this is a rule-membership diagnostic, not a resolution of unknown truth.",
+  "audit_disagreements": "Report raw-label pairs, binary-label pairs, either null and non-null disagreement counts separately per group; covered_single vs covered_joint distinction also counted separately.",
+  "no_selection": "One frozen prompt/configuration, no tuning on outputs, no pass threshold invented."
+ },
+ "hypothetical": {
+  "groups": [
+   "noisy_pool_a",
+   "retained_audit_b"
+  ],
+  "rule": "Model covered=false changes that deleted record to kept, independently against original retained set. True/null/invalid unchanged; no iterative rechecking or exporting.",
+  "counts": "Additional retained; strict/loose lost; strict/loose covered; either-null and disagreement. These overlap where documented; full vote-pair breakdown included."
+ },
+ "execution": {
+  "python": "resources/envs/vl-dedup/bin/python -I",
+  "gpu_lock": "resources/runs/ab_coord/gpu.lock",
+  "gpu_preflight": "Inside flock, save nvidia-smi before loading; stop if compute process exists or input exceeds model context.",
+  "wall_clock": "Record model initialization+inference session and generation wall times; lock wait separately. 860 expected requests; one per deletion; no external API."
+ },
+ "constraints": [
+  "Original artifacts and audit returns read-only",
+  "No new file hashes or hash manifests"
+ ],
+ "outputs": [
+  "protocol.json",
+  "gate.json",
+  "results.json",
+  "resource inputs.jsonl, prompts.jsonl, predictions.jsonl, session.json, raw generation outputs and GPU preflight"
+ ],
+ "commit_sequence": [
+  "docs(coverage_check): freeze coverage check protocol",
+  "results(coverage_check): coverage check"
+ ]
+}

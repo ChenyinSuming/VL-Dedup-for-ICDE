@@ -1,0 +1,151 @@
+{
+ "run_id": "ann_scale",
+ "frozen_utc": "2026-11-06T15:59:06.068892+00:00",
+ "sources": {
+  "RETRIEVAL_RUN": "outputs/reports/retrieval_tradeoff/hnsw/contract.json",
+  "COCO_SCALE_RUN": "resources/runs/coco_scale",
+  "SOP_SCALE_RUN": "resources/runs/sop_scale",
+  "SOP_features": "stage_a_amendment2",
+  "model": "resources/runs/scorer_noasset/vl_dedup_lr.joblib"
+ },
+ "retrieval": {
+  "channels": [
+   "phash",
+   "clip_image",
+   "clip_text",
+   "text_exact"
+  ],
+  "image_k": 30,
+  "text_k": 10,
+  "phash_radius": 2,
+  "text_exact_next_neighbors": 20,
+  "normalization": "float32 C-contiguous L2",
+  "hnsw": {
+   "index": "IndexHNSWFlat",
+   "metric": "inner product",
+   "hnsw_m": 16,
+   "ef_construction": 40,
+   "ef_search": 64,
+   "build_threads": 1,
+   "search_threads": 8
+  },
+  "exact": {
+   "index": "IndexFlatIP",
+   "threads": 8
+  },
+  "semantics": "Existing RETRIEVAL_RUN build_hnsw_edges and COCO_SCALE_RUN/SOP_SCALE_RUN build_candidates functions; k+1 then skip self, original row order, undirected union; all records in source global engineering partition"
+ },
+ "subsets": {
+  "source": "COCO full corpus, 116091 unique numeric image_id values",
+  "image_order": "np.unique(image_id), ascending numeric; Generator(PCG64(20261106)).permutation",
+  "targets": [
+   50000,
+   100000,
+   200000,
+   400000,
+   580767
+  ],
+  "cutoff": "Smallest whole-image prefix whose cumulative record count >= target; no image split; selected records restored to original corpus row order",
+  "label_access": false,
+  "repeats": 1,
+  "full_exact": "Reuse COCO_SCALE_RUN B_stage.json; no rerun. Historical receipt lacks separate index-add/search timings: report null, never infer them."
+ },
+ "evaluation": {
+  "model": "vl_dedup_lr",
+  "threshold": "2/3",
+  "COCO_K": [
+   5,
+   "inf"
+  ],
+  "SOP_K": [
+   8,
+   "inf"
+  ],
+  "K_selection": "Frozen from COCO_SCALE_RUN/SOP_SCALE_RUN; no selection or recalibration",
+  "components_order": "record_id lexicographic; global graph before projection",
+  "COCO_positive": "same visual_group_id (split,image_id)",
+  "SOP_positive": "same product visual_group_id/class_id",
+  "SOP_test": "evaluation_partition=test, superclass lamp=7",
+  "metrics": [
+   "S threshold edges",
+   "clusters",
+   "max_cluster",
+   "U co-membership pairs",
+   "TP",
+   "FP",
+   "FN",
+   "precision",
+   "recall",
+   "F1"
+  ],
+  "candidate_comparison": [
+   "intersection",
+   "exact_only",
+   "hnsw_only",
+   "union",
+   "Jaccard",
+   "same-entity candidate coverage and positive denominator"
+  ],
+  "scaling_fit": "OLS log(Stage B wall seconds) on log(actual record count), each backend five points, including historical full exact"
+ },
+ "gates": {
+  "action_on_mismatch": "Stop and report independently observed values; never adjust toward budget",
+  "RETRIEVAL_RUN_HNSW_candidates": 1508778,
+  "COCO": {
+   "candidates": 18456038,
+   "positive_pairs": 1162473,
+   "K5": {
+    "U": 1160730,
+    "tp": 1160359,
+    "fp": 371,
+    "fn": 2114,
+    "f1_rounded6": 0.99893
+   },
+   "Kinf": {
+    "fp": 460000,
+    "f1_rounded6": 0.834813
+   }
+  },
+  "SOP": {
+   "candidates": 3027364,
+   "K8_test": {
+    "tp": 4852,
+    "fp": 2139,
+    "fn": 22012,
+    "f1_rounded6": 0.286634
+   },
+   "K8_all": {
+    "f1_rounded6": 0.238086
+   },
+   "Kinf_all": {
+    "fp": 15066652
+   }
+  },
+  "method": "Read cached components, align sorted IDs, compute contingency-table pair counts; compare exact counts and F1 rounded to six decimals"
+ },
+ "timing": {
+  "lock": "resources/runs/ab_coord/cpu_benchmark.lock",
+  "gpu": false,
+  "lock_wait": "separate, excluded",
+  "stages": "Each timed gate/B/C/D/comparison in a fresh process holding flock; stage wall/process_time and process peak RSS; B includes read/normalize, four-channel generation/merge, materialize/sort/parquet write",
+  "subphases": "image/text cache-read-normalize, index-add, search, python-union wall+CPU; nonembedding channels, materialize, write",
+  "budget_lock_wall_seconds": 14400,
+  "projection": "Exact subscales sum((actual_n/580767)^2 * 6513.7); HNSW and C/D projected conservatively from frozen source receipts and observed RETRIEVAL_RUN/small-scale rates. Stop if accumulated + remaining projected exceeds 14400 or actual cumulative exceeds 14400."
+ },
+ "verification": {
+  "tests": [
+   "tests/test_ann_scale.py",
+   "tests/test_coco_scale.py",
+   "tests/test_sop_scale.py"
+  ],
+  "hashes": "N/A: no new file hashes",
+  "master": "Opening and final complete porcelain must equal prescribed 23-line / 817-byte snapshot",
+  "read_only_sources": true
+ },
+ "deliverables": [
+  "results.json",
+  "scaling.csv",
+  "tests/test_ann_scale.py",
+  "scripts/run_ann_scale.py"
+ ]
+}

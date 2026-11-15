@@ -1,0 +1,10 @@
+policy,stratum,records,retained,held,deleted,exact_repeats,lost_strict,lost_lenient
+keep_one,2-4,153,40,0,113,0,39,95
+keep_one,5-5,800,160,0,640,0,227,520
+keep_one,all,953,200,0,753,0,266,615
+vl_dedup,2-4,153,132,10,11,0,0,4
+vl_dedup,5-5,800,582,138,80,36,1,7
+vl_dedup,all,953,714,148,91,36,1,11
+vl_dedup_no_check,2-4,153,114,10,29,0,6,19
+vl_dedup_no_check,5-5,800,537,138,125,36,12,53
+vl_dedup_no_check,all,953,651,148,154,36,18,72

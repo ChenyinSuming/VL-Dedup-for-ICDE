@@ -1,0 +1,9 @@
+Relation,Pairs,VLM same,LR direct,LR K5 co-member,Invalid
+L0,1305,1268,1305,1304,0
+L2,6636,6384,6636,6632,7
+L3,760,730,760,760,3
+L1,634,620,0,0,0
+HN,159,1,0,0,0
+M,543,50,328,372,2
+MV_same_product,2984,1317,556,572,3
+MV_different_product,2984,3,0,0,0

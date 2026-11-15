@@ -1,0 +1,6 @@
+grade,relation,same_visual_entity,action_reference
+L0/L2,duplicate,yes,none
+L3,keep_augment_candidate,yes,caption labels
+L1,text_duplicate_only,no,none
+HN,hard_negative,no,none
+M,mismatch,not scored,flag_review

@@ -1,0 +1,107 @@
+{
+ "task": "STAGE_E_CLUSTERS_RUN",
+ "run_id": "stage_e_clusters",
+ "starting_commit": "recorded-commit",
+ "source_contract": "benchmark / frozen HGB K=8",
+ "inputs": {
+  "graph_root": "resources/runs/e3_component_cap",
+  "record_order": "component_row_ids.parquet",
+  "components": "HGB_K8/components.npy",
+  "retained_edges": "HGB_K8/retained_mask.npy, aligned with HGB_positive_candidate_indices.npy and candidate_row_mapping.parquet; edge mask, not a record mask",
+  "dataset_root": "resources/datasets/benchmark",
+  "records": "public_records.jsonl",
+  "partitions_only": "private/lineage.jsonl: extract record_id and partition only during construction",
+  "evaluation_only": "sealed/relation_applicability.jsonl",
+  "pair_pilot_protocol": "outputs/reports/caption_action/protocol.json",
+  "pair_pilot_verdicts": "outputs/reports/caption_action/vlm_verdicts.jsonl"
+ },
+ "construction": {
+  "U": "Every unordered distinct record pair within each frozen HGB K8 component, including pairs outside candidates and without relation labels. No graph modifications.",
+  "U_test": "Both record endpoints have partition=test",
+  "U_rest": "U minus U_test, including any cross-partition pairs",
+  "ordering": "Canonical endpoints lexicographically ascending; sort all pairs by endpoint IDs. Stable pair_id derived directly from endpoint IDs, without hashes.",
+  "pair_pilot": "Run all original 400 in original order and original endpoint orientation; reuse public caption inputs, checking equality with PAIR_PILOT_RUN sample bytes. Report K8 membership independently; only intersecting U_test rows count toward U_test coverage.",
+  "budget_gate": "Independently compute component size counts and U; any disagreement with supplied budget stops execution and is reported, without changing inputs or definitions.",
+  "expected_components": 17114,
+  "expected_size_counts": {
+   "1": 9089,
+   "2": 382,
+   "3": 135,
+   "4": 832,
+   "5": 5596,
+   "6": 77,
+   "7": 52,
+   "8": 951
+  },
+  "expected_U": 90614
+ },
+ "prompt": {
+  "id": "pair_verdict_prompt",
+  "role": "reviewer_veto",
+  "context": "none",
+  "implementation": "scripts/run_vlm_pilot.py build_prompt_record/build_qwen_messages, as used by scripts/run_caption_action_eval.py",
+  "parser": "scripts/caption_action/reference.py strict_parse, unchanged; final z_e is parsed.decision"
+ },
+ "inference": {
+  "model": "resources/models/Qwen2.5-VL-7B-Instruct",
+  "engine": "vLLM 0.11.0",
+  "dtype": "float16",
+  "temperature": 0,
+  "max_tokens": 384,
+  "max_model_len": 8192,
+  "max_num_batched_tokens": 4096,
+  "min_pixels": 3136,
+  "max_pixels": 802816,
+  "gpu_memory_utilization": 0.92,
+  "enforce_eager": true,
+  "enable_chunked_prefill": true,
+  "limit_mm_per_prompt": {
+   "image": 2
+  },
+  "seed": "vLLM default 0, no sweep",
+  "retries": 0
+ },
+ "phases": {
+  "1a": {
+   "population": "PAIR_PILOT_RUN original 400 pairs",
+   "max_num_seqs": 4,
+   "submission_batch_size": 1,
+   "reason": "Match PAIR_PILOT_RUN single-pair submission, prompt order and endpoint orientation"
+  },
+  "1b": {
+   "population": "U_test excluding phase1a intersection",
+   "max_num_seqs": 16,
+   "submission_batch_size": 16
+  },
+  "2": {
+   "population": "U_rest",
+   "max_num_seqs": 16,
+   "submission_batch_size": 16,
+   "pairs_per_gpu_lease": 5000,
+   "stop_at_utc": "2026-10-31T04:00:00+00:00",
+   "deadline_policy": "Check before each 5000-pair lease; once admitted finish that batch and release GPU at batch boundary"
+  }
+ },
+ "resume": "Durably record submitted pair identities before generate. Append terminal rows once, including failures, never retry terminal attempts. An unresolved admitted batch stops for reconciliation; never silently resubmit it.",
+ "evaluation": {
+  "reference_gate": "Do not open sealed relation reference until all U_test pairs have terminal outputs. Existing published budgets are not newly observed references.",
+  "reference_budget_gate": "Independently compute co-member test same=8698, same FN=3, M=297, L1=HN=0. Stop/report any discrepancy before claim updates.",
+  "mismatch_positive": "Co-member test M pairs",
+  "mismatch_negative": "Co-member test same pairs L0/L2/L3",
+  "prediction": "Final guarded z_e=mismatch",
+  "confusion": "TP=M mismatch; FN=M other final action; FP=same mismatch; TN=same other final action. Contract-invalid/runtime-failed rows have final uncertain and are separately reported; no reference label is fabricated.",
+  "metrics": "P=TP/(TP+FP), R=TP/(TP+FN), F1=2TP/(2TP+FP+FN); zero denominator gives null. Also report FP with negatives limited to L2/L3.",
+  "distribution": "Five final decisions duplicate/non_duplicate/keep_augment/mismatch/uncertain by L0, L2, L3, M and unlabeled. Counts conserve U_test. L1/HN if observed trigger budget stop.",
+  "keep_augment": "Count z_e=keep_augment separately within L2, L3, L0; descriptive actions, not complementarity accuracy or final information loss.",
+  "repeatability": "All400 exact final decision agreements, full5x5 cross-tab; per-class matching counts; keep_augment both positive, both negative, binary agreement, old/new positive counts. Report K8 membership of original400.",
+  "no_reselection": "No prompts, grids, concurrency or parser revisions from test results; no graph repair or deletion evaluation. Preserve historical test exposure."
+ },
+ "cost": "Separate1a/1b/2: submitted model requests, runtime failures, parse/contract failures, terminal counts, inference batch wall seconds, GPU session wall seconds including model load, session seconds/submitted pair. Do not sum shared batch latency per row. GPU lock wait excluded. Preserve failed/incomplete sessions separately.",
+ "coordination": {
+  "gpu_lock": "resources/runs/ab_coord/gpu.lock",
+  "cpu_lock": "resources/runs/ab_coord/cpu_benchmark.lock",
+  "gpu": "Acquire shared flock; inspect nvidia-smi before loading. All GPU imports/load/generate/process lifetime inside flock. Release between phase2 batches.",
+  "phase1_handoff": "After complete U_test evaluation and results(stage_e_clusters) test commit, atomically write resource phase1_complete.json listing verdict files, row counts and commit for RETAINED_AUDIT_RUN. Never publish completion on partial or failed gates."
+ },
+ "provenance": "Named paths, exact endpoint identities/order, counts and sizes; no new file hashes. Do not modify frozen inputs, response_text, human originals or32B/38B files."
+}

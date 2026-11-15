@@ -1,0 +1,263 @@
+{
+ "task": "VERBATIM_EXPORT_RUN",
+ "version": 1,
+ "run_id": "verbatim_export",
+ "user_original_words": [],
+ "inputs": {
+  "flag_rep": "resources/runs/flag_rep_export",
+  "caption_downstream": "resources/runs/caption_downstream",
+  "coverage_export": "resources/runs/coverage_export",
+  "combined_actions": "resources/runs/fused_main",
+  "noisy_pool": "resources/runs/caption_pilot"
+ },
+ "verbatim": {
+  "normalization": "re.sub(r'\\s+', ' ', s.strip().lower()).rstrip(' .')",
+  "scope": "Within each frozen exported component, group retained only; keep highest clipscore then smallest record ID; move others to deleted. Pending and old deleted unchanged. Singletons unchanged.",
+  "strict_alternative": "Count deletions by exact original string equality separately.",
+  "invariants": [
+   "Normalized retained caption set unchanged in every component",
+   "Every added deletion has a surviving same-normalized-caption witness",
+   "States disjoint and exhaustive",
+   "Held and old deletions unchanged"
+  ]
+ },
+ "benchmark": {
+  "inputs": "FLAG_REP_RUN benchmark_exports.jsonl flag_rep_cov=b_cov and flag_rep=b; COMBINED_ACTIONS_RUN clipscore, public_records.text",
+  "A1": "All multi-record components per partition; 200 clusters/953 records and size-five 160 clusters/800 records separately; before/after states and normalized/strict deletion counts.",
+  "A2": "Frozen dual-AI strict=both lost, loose=either lost; preserve old deletion audit and add zero caption-information loss for same-normalized-caption witnesses. Keep-one lost-source fates retained/held/vb_deleted/old_deleted, all and size-five. Paper number before/after table.",
+  "keep_one": {
+   "all": {
+    "deleted": 753,
+    "strict": 266,
+    "loose": 615
+   },
+   "size_five": {
+    "deleted": 640,
+    "strict": 227,
+    "loose": 520
+   }
+  },
+  "expectation": "Exact fractions strict*n/deleted and loose*n/deleted; also unrounded floating-point values; not enacted random export."
+ },
+ "downstream": {
+  "B1": "Verify FLAG_REP_RUN retained IDs against both parquets and component against CAPTION_DOWNSTREAM_RUN. Apply vb globally before fixed subsets. Controls remove exactly 35208-len(b_fr_cov_vb). No reporting provenance enters method.",
+  "methods": [
+   "b_fr_cov_vb",
+   "clipscore_vb",
+   "random_vb",
+   "b_fr_vb"
+  ],
+  "controls": {
+   "clipscore": "Ascending (clipscore,record_id) deletion",
+   "random": "random.Random(20261107).sample(sorted(all IDs), deletion count)"
+  },
+  "composition": "FLAG_REP_RUN composition plus distinct correct captions and redundant correct captions. Correct means not caption_swapped; distinct key=(original_image_id, strict_release_qc.normalize_text(text)), matching historical writing diagnostic; redundant=correct retained rows minus unique correct keys. Also report raw-string redundancy.",
+  "B2": {
+   "retraining_control": "FLAG_REP_RUN b_fr_cov, subset seed 20261104, all seven differences; stop abs(CIDEr difference)>.02",
+   "seeds": [
+    20261104,
+    20261105,
+    20261106,
+    20261107,
+    20261108,
+    20261109,
+    20261110,
+    20261111,
+    20261112,
+    20261113
+   ],
+   "settings": "Reuse CAPTION_DOWNSTREAM_RUN train/generate/evaluator function bodies unchanged, 4370 steps per subset, same final checkpoint, same 5000-image test and 25010 references; same clean parquet and frozen subsets.",
+   "inherited_r70_training": {
+    "reuse": "CAPTION_DOWNSTREAM_RUN no_dedup,keep_one,semdedup,clean,b,b_cov,clipscore,random:80 existing train/evaluation receipts, no retraining except named gate.",
+    "environment": "CAPTION_DOWNSTREAM_RUN caption-env, GPT2/CLIP assets, annotations and evaluation code; FLAG_REP_RUN owns all outputs/cache paths.",
+    "retrain_gate": {
+     "method": "CAPTION_DOWNSTREAM_RUN b_cov",
+     "seed": 20261104,
+     "stop_if_absolute_CIDEr_difference_exceeds": 0.02,
+     "report": "All seven metric differences"
+    },
+    "training_order": [
+     "b_fr_cov",
+     "clipscore_fr",
+     "b_fr",
+     "random_fr"
+    ],
+    "seeds": [
+     20261104,
+     20261105,
+     20261106,
+     20261107,
+     20261108,
+     20261109,
+     20261110,
+     20261111,
+     20261112,
+     20261113
+    ],
+    "steps_each": 4370,
+    "new_training_runs": 40,
+    "gate_training_runs": 1,
+    "settings": "Identical CAPTION_DOWNSTREAM_RUN ClipCap initialization, batch, optimizer, schedule, decoding and test membership. Background process durable progress; resume exact checkpoint/stream state and completed runs."
+   },
+   "order": [
+    "b_fr_cov_vb",
+    "clipscore_vb",
+    "random_vb",
+    "b_fr_vb"
+   ],
+   "reuse": "CAPTION_DOWNSTREAM_RUN all8 methods and FLAG_REP_RUN all4 methods read-only; no new baseline training except prescribed control.",
+   "resume": "Original model/optimizer/scheduler/data/RNG checkpoints and partial generation; completion markers required."
+  },
+  "B3": {
+   "main_contrasts": [
+    [
+     "keep_one",
+     "no_dedup"
+    ],
+    [
+     "semdedup",
+     "no_dedup"
+    ],
+    [
+     "clipscore_vb",
+     "no_dedup"
+    ],
+    [
+     "random_vb",
+     "no_dedup"
+    ],
+    [
+     "b_fr_vb",
+     "no_dedup"
+    ],
+    [
+     "b_fr_cov_vb",
+     "no_dedup"
+    ],
+    [
+     "b_fr_cov_vb",
+     "keep_one"
+    ],
+    [
+     "b_fr_cov_vb",
+     "semdedup"
+    ],
+    [
+     "b_fr_cov_vb",
+     "clipscore_vb"
+    ],
+    [
+     "b_fr_cov_vb",
+     "random_vb"
+    ],
+    [
+     "b_fr_cov_vb",
+     "b_fr_vb"
+    ]
+   ],
+   "additional_contrasts": [
+    [
+     "b_fr_cov_vb",
+     "flag_rep_b_fr_cov"
+    ],
+    [
+     "b_fr_cov_vb",
+     "flag_rep_clipscore_fr"
+    ],
+    [
+     "b_fr_cov_vb",
+     "caption_downstream_clipscore"
+    ]
+   ],
+   "main_p_values": 231,
+   "additional_p_values": 63,
+   "tests": "Paired t two-sided/greater/less, alpha=.05, independent BY per family; CHAIR oriented lower better. P/N/S same CAPTION_DOWNSTREAM_RUN/FLAG_REP_RUN; no extra performance pass line.",
+   "reports": "Means/sample SD, raw and oriented average differences, better subsets, all raw and adjusted p.",
+   "regression": "All CAPTION_DOWNSTREAM_RUN/FLAG_REP_RUN/VERBATIM_EXPORT_RUN training sets with swapped fraction <.05: mean CIDEr vs distinct correct captions, slope/r/residuals. Separate frozen seven-set fit (FLAG_REP_RUN b_fr,b_fr_cov,clipscore_fr; CAPTION_DOWNSTREAM_RUN b,b_cov,clipscore,clean) predicts VERBATIM_EXPORT_RUN new sets; reporting only."
+  }
+ },
+ "gates": {
+  "benchmark_normalized": {
+   "b_cov": {
+    "test": 223,
+    "validation": 239,
+    "train": 1038
+   },
+   "b": {
+    "test": 219,
+    "validation": 233,
+    "train": 1018
+   }
+  },
+  "benchmark_strict_b_cov": {
+   "test": 223,
+   "validation": 238,
+   "train": 1037
+  },
+  "sample": {
+   "b_cov_vb": [
+    714,
+    148,
+    91
+   ],
+   "b_vb": [
+    651,
+    148,
+    154
+   ],
+   "added_each": 36,
+   "all_added_size_five": true,
+   "size_five_b_cov_vb_deleted": 80
+  },
+  "training": {
+   "flag_rep_b_fr_cov": 26405,
+   "flag_rep_b_fr": 24161,
+   "vb_deleted_each": 7849,
+   "strict_deleted_each": 7843,
+   "b_fr_cov_vb": {
+    "records": 18556,
+    "distinct_correct_captions": 18138,
+    "retained_swapped": 123,
+    "retained_copies": 2017
+   },
+   "b_fr_vb": {
+    "records": 16312,
+    "distinct_correct_captions": 15927
+   },
+   "clipscore_vb": {
+    "deleted": 16652,
+    "retained_swapped": 16,
+    "distinct_original_images": 3737,
+    "distinct_correct_captions": 13887
+   },
+   "random_vb": {
+    "retained_swapped": 3644,
+    "distinct_correct_captions": 11982
+   }
+  },
+  "retraining_CIDEr_absolute_limit": 0.02
+ },
+ "runtime": {
+  "max_gpu_stage_seconds": 50400,
+  "initial_seconds_per_run": 964.0,
+  "runs": 41,
+  "estimate_seconds": 39524.0,
+  "policy": "Before/after each run extrapolate observed train+eval mean over all41; stop if measured or projected total >14h; do not reduce subsets.",
+  "gpu_lock": "resources/runs/ab_coord/gpu.lock",
+  "cpu_lock": "resources/runs/ab_coord/cpu_benchmark.lock"
+ },
+ "checks": {
+  "tests": [
+   "test_verbatim_export.py",
+   "test_flag_rep_export.py",
+   "test_coverage_export.py",
+   "test_caption_downstream_controller.py",
+   "test_caption_downstream_eval.py",
+   "test_caption_downstream_sets.py",
+   "test_caption_downstream_summary.py",
+   "test_caption_downstream_training.py"
+  ],
+  "master": "Opening/final porcelain byte equality to quoted23-line reference",
+  "transfer": "Metadata only once at end; no new file hashes"
+ }
+}

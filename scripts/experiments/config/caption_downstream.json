@@ -1,0 +1,185 @@
+{
+ "task": "CAPTION_DOWNSTREAM_RUN",
+ "run_id": "caption_downstream",
+ "starting_commit": "9e596974",
+ "required_merge": "2d05166c",
+ "sources": {
+  "noisy_pool_run": "resources/runs/caption_pilot",
+  "caption_downstream_run": "resources/runs/caption_downstream",
+  "cleanml": "https://bpb-us-e1.wpmucdn.com/sites.gatech.edu/dist/b/1653/files/2021/02/CleanML_ICDE2021.pdf",
+  "cleanml_scope": "ICDE 2021 BD: clean training data, evaluate on a fixed clean test. This caption experiment uses user-specified 10 (or 5) overlapping training-image subsets rather than the paper's original classification tasks and repetitions.",
+  "prior_exposure": "NOISY_POOL_RUN published graph/count/timing evidence and COVERAGE_EXPORT_RUN historical result snippets were read to check reuse. CAPTION_DOWNSTREAM_RUN test performance has not been read. COVERAGE_EXPORT_RUN historical metrics do not select any CAPTION_DOWNSTREAM_RUN parameter."
+ },
+ "corpus": {
+  "reuse_only": true,
+  "train": "b/train/corpus.parquet",
+  "validation": "b/validation/corpus.parquet",
+  "clean": "b/clean.parquet",
+  "expected": {
+   "train_records": 35208,
+   "train_original_images": 5000,
+   "train_copy_records": 10199,
+   "train_swapped_records": 6989,
+   "validation_records": 6852,
+   "validation_original_images": 1000,
+   "clean_records": 25009,
+   "clean_images": 5000,
+   "test_images": 5000
+  },
+  "identity": "Original NOISY_POOL_RUN Karpathy train/validation/test membership and leakage gates are immutable; no noise reconstruction or resampling.",
+  "provenance": "original_image_id, is_copy, caption_source_image_id and caption_swapped are reporting/evaluation fields only. No cleaning method receives provenance. Validation truth is used only for the prescribed graph/t selection.",
+  "alignment": "Feature arrays follow corpus row order; components follow record_id ascending. Align by record_id before joining."
+ },
+ "methods": {
+  "No dedup": "All 35208 noisy records.",
+  "Keep-one": "NOISY_POOL_RUN LR K=inf components; highest CLIPScore per component, tie smallest record_id.",
+  "SemDeDup": "GRAPH_SURFACES_RUN threshold-edge connected-components implementation on normalized cached ViT-L/14-336 features. Select k/epsilon on noisy validation graph exact F1; highest CLIPScore representative per train component, tie smallest record_id.",
+  "CLIPScore filter": "Remove the lowest CLIPScore records, tie record_id ascending; number removed equals b_cov deleted plus held/pending.",
+  "Random": "Random(20261104).sample from sorted record_id; remove the same number as b_cov deleted plus held/pending.",
+  "VL-Dedup w/o check": "COMBINED_ACTIONS_RUN policy b, retained only; deleted and pending/held excluded.",
+  "VL-Dedup": "COVERAGE_EXPORT_RUN iterative b_cov export, retained only; deleted and pending/held excluded.",
+  "Clean": "Original 25009 clean captions, reference only, excluded from significance comparisons."
+ },
+ "dedup": {
+  "stage_a_d": "Reuse NOISY_POOL_RUN B caches and frozen components, no rebuilding.",
+  "scorer": "Frozen CLASSIFIER_RUN LR 11-feature adapter, calibrator and tau=2/3; K=inf from NOISY_POOL_RUN validation exact F1 27712/28103.",
+  "record_fusion": "COMBINED_ACTIONS_RUN: 0.5*midrank_percentile(CLIPScore)+0.5*midrank_percentile(Pyes), anchored to frozen original MISMATCH_SCORES_RUN validation references; invalid Pyes percentile=1.",
+  "t_selection": "On 6852 noisy validation records only: maximize exact Fraction mismatch F1 using caption_swapped as truth, strict fused_score<t, choose first connected optimal threshold interval midpoint via run_action_checks.select_threshold (unbounded left uses upper). This adopts the paper MISMATCH_SCORES_RUN/COMBINED_ACTIONS_RUN selection rule requested by CAPTION_DOWNSTREAM_RUN, replacing the unused NOISY_POOL_RUN observed/nextafter smallest-t proposal. Freeze t before train export or test inference.",
+  "validation_pairs": "No pairwise inference on validation.",
+  "train_pairs": "All unordered distinct pairs within frozen train K=inf components, canonical endpoints, lexicographic endpoint order; independently count before timing (published estimate 151983 is not an authority).",
+  "pair_prompt": "STAGE_E_CLUSTERS_RUN pair_verdict_prompt, reviewer_veto, context none; parsed.decision via unchanged strict parser.",
+  "record_prompt": "Caption: {caption}\nDoes this caption correctly describe the image? Answer with yes or no.",
+  "sem_grid": {
+   "k": [
+    50,
+    100,
+    200,
+    500
+   ],
+   "epsilon": [
+    0.005,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.3
+   ],
+   "kmeans": "CPU spherical faiss, seed20261048, 50 iterations, nredo1, all records",
+   "edges": "All unordered same-cell pairs with cosine>=1-epsilon, no kNN truncation; include isolates",
+   "selection": "Validation exact component pairwise F1 on original-image groups, then fewer predicted-positive pairs, then listed grid order; train is reporting only."
+  },
+  "coverage": "Unchanged COVERAGE_EXPORT_RUN/COVERAGE_CHECK_RUN text-only prompt and strict JSON parser, Qwen2.5-VL-7B. Establish policy b, then b_cov_one_pass fixed-reference cache pass and iterative b_cov in COVERAGE_EXPORT_RUN order. Within each cluster deleted candidates: CLIPScore descending/ID ascending; retained references: ID ascending. Only valid covered=true permits deletion; false/null/invalid is rescued and added to future references. Record logical checks separately from newly inferred requests."
+ },
+ "inference": {
+  "model": "resources/models/Qwen2.5-VL-7B-Instruct",
+  "engine": "vLLM 0.11.0, float16, TP1, seed0, eager, chunked prefill",
+  "max_model_len": 8192,
+  "max_num_batched_tokens": 4096,
+  "max_num_seqs": {
+   "stage_e": 16,
+   "coverage": 4
+  },
+  "submission_batch": 16,
+  "gpu_memory_utilization": 0.92,
+  "pixels": [
+   3136,
+   802816
+  ],
+  "temperature": 0,
+  "top_p": 1,
+  "pair_max_tokens": 384,
+  "record_max_tokens": 1,
+  "record_logprobs": 20,
+  "coverage_max_tokens": 384,
+  "retry": 0,
+  "invalid": "Preserve raw terminal outputs; never retry token limits or fabricate labels."
+ },
+ "timing_pilot": {
+  "pair_sample": "Random(20261104).sample(sorted canonical train pairs,1000), save sampled identities before model load.",
+  "record_sample": "Random(20261105).sample(sorted combined train/validation record IDs,256). Pair endpoints not in this sample provide context only, not extra scoring requests.",
+  "measurement": "Measure model load, record batches and 1000 pair batches separately. Batch wall includes prompt/image preparation, inference, parse and durable output. No early decision from fewer than 1000 pairs.",
+  "projection": "model_load_seconds + record_batch_seconds/256*42060 + pair_batch_seconds/1000*independently_counted_train_pairs; successful pilot terminal outputs reused in the full run."
+ },
+ "subsets": {
+  "images_each": 3500,
+  "default_count": 10,
+  "reduced_count": 5,
+  "seeds": [
+   20261104,
+   20261105,
+   20261106,
+   20261107,
+   20261108,
+   20261109,
+   20261110,
+   20261111,
+   20261112,
+   20261113
+  ],
+  "sampling": "Random(seed).sample(sorted original 5000 train image IDs,3500); restrict each globally frozen method's records by these original image IDs. Same image membership for Clean. No per-subset recleaning."
+ },
+ "caption_model": {
+  "upstream": "NOISY_POOL_RUN upstream_clipcap, rmokady/CLIP_prefix_caption",
+  "initialization": "GPT-2 small language pretraining only; no COCO caption checkpoint. Frozen OpenAI CLIP ViT-B/32 encoder; train GPT-2 plus mapping MLP512->3840->7680, tanh, prefix10.",
+  "resource_note": "NOISY_POOL_RUN model downloads are incomplete. Complete into this run's resources after Stage E gate passes; do not alter NOISY_POOL_RUN. Cached Stage A ViT-L/14 768-dimensional vectors cannot replace 512-dimensional ViT-B/32 prefixes.",
+  "batch_size": 40,
+  "learning_rate": 2e-05,
+  "optimizer": "AdamW, betas(.9,.999), eps1e-8, weight_decay.01",
+  "steps_per_subset": "10*floor(N_clean_records_in_subset/40); identical optimizer steps for all eight methods on this subset; cycle independently shuffled retained records as needed, drop last batch.",
+  "schedule": "Linear warmup min(5000,total_steps), then linear decay; inherited NOISY_POOL_RUN preset, no test-guided tuning.",
+  "max_caption_tokens": 40,
+  "seed": "Subset seed for identical initialization across methods; independent deterministic shuffled record stream per method using that seed.",
+  "checkpoint": "Final prescribed optimizer step only; no best-test checkpoint selection.",
+  "decoding": "Deterministic greedy, max40 tokens, stop EOS or first period; one caption per test image per trained model.",
+  "timing": "First train Clean subset1 to completion, evaluate its 5000-image test once. If its measured training time*80>30 GPU hours reduce subsets to first5; reuse this Clean model/evaluation. Project all training plus all evaluation, including prefix encoding and model loads; if >35 GPU hours after reduction stop. Record actual and projected separately."
+ },
+ "evaluation": {
+  "test": "Fixed clean full Karpathy test, 5000 images, official references, no noise or cleaning.",
+  "metrics": [
+   "CIDEr",
+   "BLEU-4",
+   "METEOR",
+   "SPICE",
+   "SPICE recall",
+   "CHAIR_i",
+   "CHAIR_s"
+  ],
+  "implementation": "Official pycocoevalcap/PTBTokenizer; CIDEr raw scale, not x100. SPICE overall F1 plus macro mean of per-image All.r from official SPICE scorer. CHAIR original LisaAnne/Hallucination code with original COCO2014 captions/instances annotations.",
+  "dependencies": "New training/evaluation dependencies and OpenJDK in an independent conda environment under this run resource directory; do not modify vl-dedup or NOISY_POOL_RUN environments.",
+  "usage": "Test reporting only, except predeclared Clean CIDEr correctness gate; no parameter or method changes after reading test."
+ },
+ "statistics": {
+  "n": "10 paired subset metrics, or first5 after the training-time rule; Clean reference excluded.",
+  "contrasts": "Each of six cleaning methods vs No dedup, and VL-Dedup vs each of six other non-Clean methods. The repeated VL-Dedup vs No dedup contrast is computed once: 11 distinct contrasts.",
+  "direction": "Difference=first minus second for CIDEr/BLEU4/METEOR/SPICE/SPICE recall; difference=second minus first for CHAIR_i/CHAIR_s, so positive always means better.",
+  "tests": "Paired t tests of mean oriented difference: two-sided, greater, less; alpha=.05; ddof1; identical zero differences have all p=1; nonzero constant differences have limiting p(two)=0 and directional p=0/1.",
+  "correction": "One Benjamini-Yekutieli family contains all 11*7*3=231 raw p-values; no separate correction by metric, contrast or tail. Adjust p_(i) using min_{j>=i}(m*H_m*p_(j)/j), capped1.",
+  "flags": "P if corrected two-sided<.05 and corrected greater<.05; N if corrected two-sided<.05 and corrected less<.05; otherwise S. No extra performance pass line.",
+  "tables": "Mean +/- sample standard deviation, flags per contrast/metric, P/N/S counts. State subset overlap and paired experiment scope."
+ },
+ "gates": {
+  "1": "Independent NOISY_POOL_RUN B counts equal corpus.expected; K=inf, validation exact F1=27712/28103, frozen leakage/graph gates pass. Mismatch stops.",
+  "2": "After protocol-only commit merge --no-ff 2d05166c; tests/test_coverage_export.py must all pass.",
+  "3": "Clean subset1 CIDEr>=.4. Below .4 stops without retuning.",
+  "stage_e_hours_max": 24,
+  "train_eval_hours_max_after_reduction": 35,
+  "stop_policy": "A failed correctness or time gate stops dependent work; preserve raw failures and partial outputs and report null with a reason for unexecuted metrics."
+ },
+ "operations": {
+  "python": "resources/envs/vl-dedup/bin/python -I",
+  "gpu_lock": "resources/runs/ab_coord/gpu.lock",
+  "gpu": "Every GPU phase under flock; record nvidia-smi after acquiring lock and before model load. Background jobs durably update progress.json and append terminal records. Resume completed work, never silently rerun an unresolved admitted batch.",
+  "master_snapshot": "Opening full porcelain is 23 lines; save final full porcelain and compare bytes once at completion.",
+  "hash_fields": "N/A by explicit user prohibition; no new file hash manifests."
+ },
+ "reporting": {
+  "files": [
+   "results.json"
+  ],
+  "composition": "Per method: records, distinct original images and distinct image assets, captions-per-original-image histogram including zero, retained copies/swaps, removed original non-copy/non-swapped captions.",
+  "upstream_downstream": "Same table: retained swapped captions and removed original captions beside CHAIR and SPICE-recall P/N/S.",
+  "time": "Actual Stage E, coverage, each training and evaluation; projections and lock waits separately. No execution claim from planned artifacts."
+ }
+}

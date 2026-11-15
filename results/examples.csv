@@ -1,0 +1,6 @@
+example,record_a,record_b,caption_a,caption_b,reference,vlm_verdict,record_score_beta,threshold_t
+complementary,record_015549,record_017528,Birds are flying past a steeple with a clock on it.,A green and white church tower under a partly cloudy sky.,complementary,keep_augment,,0.05960534898891063
+redundant,record_024879,record_017079,a large plane is sitting in the dirt,A large plane is parked in a dirt field.,redundant,duplicate,,0.05960534898891063
+swapped_caption,record_008009,,A man is riding a skateboard down a road.,,mismatch,,0.0204664057403783,0.05960534898891063
+wrong_object,record_001225,record_024741,Some giraffes and some big elephants by the water.,a couple zebra drinking water out in the desert,human:a=correct:nan;b=local_error:object,mismatch,0.0754240052185257,0.05960534898891063
+lost_under_keep_one,record_018569,record_005204,a long hair cat laying on a white bed,A cat sleeping on a bed with a small TV in a bedroom.,"auditors:lost,lost",keep_augment,,0.05960534898891063

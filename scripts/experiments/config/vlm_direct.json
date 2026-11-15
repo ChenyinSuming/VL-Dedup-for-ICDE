@@ -1,0 +1,221 @@
+{
+ "task": "VLM_DIRECT_RUN",
+ "run_id": "vlm_direct",
+ "starting_commit": "recorded-commit",
+ "authorization_verbatim": [],
+ "scope": "Direct frozen VLM graded pair judgments and test-candidate graphs; no external API, scorer fitting, calibration, prompt change, threshold/K/t selection, new human labels, or frozen-output changes.",
+ "inputs": {
+  "dataset": "resources/datasets/benchmark/{public_records.jsonl,private/lineage.jsonl,sealed/relation_applicability.jsonl}",
+  "candidates": "resources/runs/retrieval_tradeoff/i30_t10_r1/candidates.parquet",
+  "stage_e_clusters": "resources/runs/stage_e_clusters/",
+  "actions": "resources/runs/main_config/",
+  "classifier": "resources/runs/scorer_noasset/",
+  "mv": "resources/runs/sop_multiview/",
+  "combined_actions": "resources/runs/fused_main/record_scores.json",
+  "flag_rep": "resources/runs/flag_rep_export/singleton_scores.jsonl",
+  "pair_pilot_protocol": "outputs/reports/caption_action/protocol.json",
+  "pair_pilot_reference": "outputs/reports/adjudication_r26/",
+  "source_code": [
+   "scripts/run_caption_action_eval.py",
+   "scripts/caption_action/",
+   "scripts/run_stage_e_clusters.py",
+   "scripts/run_main_config_actions.py",
+   "scripts/run_graph_baselines.py",
+   "scripts/run_mv_products.py"
+  ]
+ },
+ "definitions": {
+  "identity": "strict_parse(response_text).contract_valid and structured same_visual_entity == yes; parse, runtime or consistency failure -> false, counted separately. Field is the existing yes/no/uncertain enum; do not equate it with duplicate.",
+  "mismatch": "Stored canonical parsed.decision == mismatch; newly run rows use unchanged strict_parse. Preserve historical response_text and canonical decisions.",
+  "reuse": "Use exact endpoint identities and original orientation. Read original STAGE_E_CLUSTERS_RUN final raw verdict sources and ACTIONS_RUN supplements referenced by canonical actions; never rerun existing U_new judgments. Canonicalize unordered endpoint keys; duplicate/foreign/unresolved identities stop. Reuse new A judgments in B if identities overlap; report union and overlap explicitly.",
+  "beta": "COMBINED_ACTIONS_RUN fusion field, fallback FLAG_REP_RUN fusion for record IDs absent from COMBINED_ACTIONS_RUN; frozen t=0.05960534898891063; min(endpoint beta) < t.",
+  "same_entity_positive": "L0/L2/L3; exclude M from visual truth. MV product identity evaluated separately.",
+  "failures": "Terminal invalid outputs are false identity and uncertain final action. No automatic retries or response repair."
+ },
+ "A": {
+  "test_labeled": 10037,
+  "test_relation_budgets": {
+   "L0/L2": 7941,
+   "L3": 760,
+   "M": 543,
+   "L1": 634,
+   "HN": 159
+  },
+  "existing_test": 9068,
+  "new_test": 969,
+  "mv_labeled": {
+   "same_product": 2984,
+   "different_product": 2984
+  },
+  "new_mv": 5968,
+  "relation_rows": [
+   "L0",
+   "L2",
+   "L3",
+   "L1",
+   "HN",
+   "M",
+   "MV_same_product",
+   "MV_different_product"
+  ],
+  "A2": "Per relation: count VLM identity, LR direct edges (candidate and calibrated>=2/3, absent candidate=false), frozen global LR K5 co-membership; five final decisions. P/R/F1 on 9494 visually known test pairs and separately 5968 MV pairs.",
+  "A3": "Full labeled mismatch: positive 543 M, negative 8701 same-entity pairs. Compare VLM, beta rule, VLM OR beta. Repeat on frozen global K5 co-member subset (372 M,8696 same). TP/FP/FN/P/R/F1; no threshold selection.",
+  "completion": "Write results_A.json before B."
+ },
+ "B": {
+  "test_candidates": 61056,
+  "reuse_U_new": 10287,
+  "new_before_A_overlap": 50769,
+  "nodes": "All test records, including isolated and M path nodes. Filter candidate endpoints to test before construction. Evaluate induced co-membership on 5998 non-M records only.",
+  "vlm_cc": "VLM identity edges; unlimited connected components.",
+  "vlm_k5": "Same edges; cap component size5; order clip_image_score descending, low endpoint ID ascending, high endpoint ID ascending.",
+  "vl_cc": "LR calibrated>=2/3 on the same test-candidate universe; unlimited components.",
+  "vl_k5": "Same LR edges; cap5; calibrated descending, raw descending, low/high endpoint ID ascending.",
+  "evaluation": "GRAPH_SURFACES_RUN pairwise contingency counts; 5998 records,17985003 unordered pairs,8701 true same pairs. TP/FP/FN/F1,cluster count,max cluster,|U|; report full test graph structure separately from non-M evaluation projection.",
+  "disagreement": "Count VLM-only and LR-only edges separately, mutually exclusive endpoint classes: same non-M visual group; L1 same caption different image; HN same superclass different product; other different-group. M endpoints separately counted to avoid inventing known visual truth.",
+  "progress": "Write durable progress every10000 new B pairs."
+ },
+ "gates": {
+  "1": {
+   "candidate_rows": 1502683,
+   "test_candidates": 61056,
+   "test_same_group": 10875,
+   "test_with_M_endpoint": 7710,
+   "U_new_test": 10290,
+   "test_candidate_U_new_intersection": 10287,
+   "B_new": 50769,
+   "test_labeled": 10037,
+   "test_labeled_U_new_intersection": 9068
+  },
+  "2": {
+   "order": [
+    "duplicate",
+    "non_duplicate",
+    "keep_augment",
+    "mismatch",
+    "uncertain"
+   ],
+   "counts": {
+    "L0": [
+     754,
+     0,
+     513,
+     37,
+     0
+    ],
+    "L2": [
+     2941,
+     0,
+     3434,
+     250,
+     7
+    ],
+    "L3": [
+     343,
+     0,
+     387,
+     27,
+     3
+    ],
+    "M": [
+     1,
+     0,
+     36,
+     334,
+     1
+    ],
+    "unlabeled": [
+     5,
+     2,
+     138,
+     1070,
+     7
+    ]
+   }
+  },
+  "3": {
+   "PAIR_PILOT_RUN_reinfer_keep_augment_TP_FP_FN_TN": [
+    163,
+    54,
+    106,
+    77
+   ],
+   "intracluster_pair_verdict_TP_FP_FN": [
+    334,
+    314,
+    38
+   ],
+   "intracluster_pair_verdict_F1_6dp": "0.654902",
+   "intracluster_beta_TP_FP_FN": [
+    347,
+    17,
+    25
+   ],
+   "intracluster_beta_F1_6dp": "0.942935"
+  },
+  "4": {
+   "global_vl_dedup_lr_K5_test_TP_FP_FN": [
+    8696,
+    106,
+    5
+   ],
+   "F1_6dp": "0.993658",
+   "MV_labeled_same_product_comember": 572,
+   "MV_labeled_different_product_comember": 0
+  },
+  "policy": "Independently calculate; any discrepancy stops and is reported without changing inputs, definitions or supplied budgets."
+ },
+ "inference": {
+  "prompt": "pair_verdict_prompt",
+  "context": "none",
+  "role": "reviewer_veto",
+  "model": "Qwen2.5-VL-7B-Instruct",
+  "engine": "vLLM 0.11.0",
+  "temperature": 0,
+  "max_tokens": 384,
+  "max_num_seqs": 16,
+  "submission_batch_size": 16,
+  "dtype": "float16",
+  "max_model_len": 8192,
+  "max_num_batched_tokens": 4096,
+  "min_pixels": 3136,
+  "max_pixels": 802816,
+  "gpu_memory_utilization": 0.92,
+  "enforce_eager": true,
+  "enable_chunked_prefill": true,
+  "limit_mm_per_prompt": {
+   "image": 2
+  },
+  "seed": 0,
+  "retries": 0,
+  "PAIR_PILOT_RUN_gate": "Original400 sample order/orientation, single-pair submissions and max_num_seqs4 as frozen STAGE_E_CLUSTERS_RUN phase1a; main new inference uses16."
+ },
+ "execution_order": [
+  "Commit protocol only: docs(vlm_direct): freeze direct VLM protocol",
+  "CPU gates1,2,4 under cpu_benchmark.lock",
+  "Wait behind VERBATIM_EXPORT_RUN for gpu.lock; inspect nvidia-smi before model load",
+  "PAIR_PILOT_RUN gate3 under GPU lock; stop on failure",
+  "A: project runtime after first1000 new pairs; stop if A+B estimated GPU time>9h",
+  "B with10000-pair progress",
+  "Focused tests and final results"
+ ],
+ "coordination": {
+  "lock_root": "resources/runs/ab_coord",
+  "CPU": "flock cpu_benchmark.lock; ANN_SCALE_RUN/SCALE_BASELINES_RUN share it",
+  "GPU": "flock gpu.lock; imports/model/load/worker lifetime entirely locked; no preemption. VERBATIM_EXPORT_RUN has priority.",
+  "timing": "Separate lock wait, model load, inference, GPU session wall time and seconds per pair; forecast on first1000 new A pairs, use actual union of remaining requests; threshold9h. Supplied planning estimate57700 pairs at0.437s~7h is not an observation."
+ },
+ "validation": {
+  "tests": [
+   "tests/test_vlm_direct.py:identity/failure handling,exact reuse/new union,clip score ordering and K5 cap,pairwise conservation",
+   "tests/test_graph_baselines.py",
+   "tests/test_fused_main.py"
+  ],
+  "outputs": [
+   "results.json",
+   "verdicts_new.jsonl"
+  ],
+  "final_commit": "results(vlm_direct): direct VLM comparison",
+  "provenance": "Named paths,commits,counts and sizes; no new hashes. Tests run with vl-dedup/bin/python -I -m pytest."
+ }
+}

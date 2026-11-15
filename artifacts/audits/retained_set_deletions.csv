@@ -1,0 +1,999 @@
+cluster_id,cluster_size,export,deleted_record,retained_records,auditor_1,auditor_2
+record_000004,4,keep_one,record_000004,record_001985,lost,uncertain
+record_000004,4,keep_one,record_009866,record_001985,lost,lost
+record_000004,4,keep_one,record_038880,record_001985,covered_single,covered_single
+record_000004,4,vl_dedup,record_038880,record_000004 record_001985 record_009866,covered_single,covered_single
+record_000004,4,vl_dedup_no_check,record_009866,record_000004 record_001985,lost,lost
+record_000004,4,vl_dedup_no_check,record_038880,record_000004 record_001985,covered_single,covered_single
+record_000092,5,keep_one,record_000092,record_027710,uncertain,uncertain
+record_000092,5,keep_one,record_012937,record_027710,lost,lost
+record_000092,5,keep_one,record_027500,record_027710,covered_single,uncertain
+record_000092,5,keep_one,record_040450,record_027710,lost,uncertain
+record_000096,5,keep_one,record_000096,record_043273,covered_single,covered_single
+record_000096,5,keep_one,record_018842,record_043273,covered_single,covered_single
+record_000096,5,keep_one,record_019704,record_043273,lost,lost
+record_000096,5,keep_one,record_031670,record_043273,lost,uncertain
+record_000096,5,vl_dedup,record_000096,record_019704 record_043273,covered_single,covered_single
+record_000096,5,vl_dedup,record_018842,record_019704 record_043273,covered_joint,covered_single
+record_000096,5,vl_dedup,record_031670,record_019704 record_043273,covered_single,covered_single
+record_000096,5,vl_dedup_no_check,record_000096,record_043273,covered_single,covered_single
+record_000096,5,vl_dedup_no_check,record_018842,record_043273,covered_single,covered_single
+record_000096,5,vl_dedup_no_check,record_019704,record_043273,lost,lost
+record_000096,5,vl_dedup_no_check,record_031670,record_043273,lost,uncertain
+record_000113,5,keep_one,record_000113,record_011559,lost,uncertain
+record_000113,5,keep_one,record_010040,record_011559,lost,covered_single
+record_000113,5,keep_one,record_014386,record_011559,lost,uncertain
+record_000113,5,keep_one,record_024448,record_011559,lost,lost
+record_000113,5,vl_dedup,record_000113,record_010040 record_011559 record_014386 record_024448,covered_single,covered_single
+record_000113,5,vl_dedup_no_check,record_000113,record_011559,lost,uncertain
+record_000113,5,vl_dedup_no_check,record_010040,record_011559,lost,covered_single
+record_000113,5,vl_dedup_no_check,record_014386,record_011559,lost,uncertain
+record_000113,5,vl_dedup_no_check,record_024448,record_011559,lost,lost
+record_000134,5,keep_one,record_000134,record_037018,lost,covered_single
+record_000134,5,keep_one,record_011101,record_037018,lost,uncertain
+record_000134,5,keep_one,record_017157,record_037018,lost,lost
+record_000134,5,keep_one,record_030593,record_037018,lost,uncertain
+record_000164,5,keep_one,record_000164,record_026239,lost,covered_single
+record_000164,5,keep_one,record_017924,record_026239,lost,uncertain
+record_000164,5,keep_one,record_030509,record_026239,lost,lost
+record_000164,5,keep_one,record_042665,record_026239,lost,covered_single
+record_000231,5,keep_one,record_000231,record_001529,lost,lost
+record_000231,5,keep_one,record_013655,record_001529,lost,covered_single
+record_000231,5,keep_one,record_014507,record_001529,lost,lost
+record_000231,5,keep_one,record_032899,record_001529,lost,uncertain
+record_000231,5,vl_dedup,record_014507,record_000231 record_001529 record_013655 record_032899,exact_repeat,exact_repeat
+record_000231,5,vl_dedup_no_check,record_014507,record_000231 record_001529 record_013655 record_032899,exact_repeat,exact_repeat
+record_000248,5,keep_one,record_000248,record_033659,lost,lost
+record_000248,5,keep_one,record_003740,record_033659,lost,uncertain
+record_000248,5,keep_one,record_009469,record_033659,lost,uncertain
+record_000248,5,keep_one,record_047359,record_033659,lost,covered_single
+record_000261,5,keep_one,record_000261,record_019334,lost,uncertain
+record_000261,5,keep_one,record_005427,record_019334,lost,lost
+record_000261,5,keep_one,record_024968,record_019334,lost,uncertain
+record_000261,5,keep_one,record_039874,record_019334,lost,lost
+record_000480,5,keep_one,record_000480,record_017578,lost,uncertain
+record_000480,5,keep_one,record_016773,record_017578,lost,uncertain
+record_000480,5,keep_one,record_033513,record_017578,lost,lost
+record_000480,5,keep_one,record_042543,record_017578,lost,lost
+record_000480,5,vl_dedup,record_016773,record_000480 record_017578 record_033513 record_042543,covered_joint,covered_joint
+record_000480,5,vl_dedup_no_check,record_000480,record_017578,lost,uncertain
+record_000480,5,vl_dedup_no_check,record_016773,record_017578,lost,uncertain
+record_000480,5,vl_dedup_no_check,record_033513,record_017578,lost,lost
+record_000480,5,vl_dedup_no_check,record_042543,record_017578,lost,lost
+record_000609,4,keep_one,record_000609,record_031376,lost,uncertain
+record_000609,4,keep_one,record_027960,record_031376,lost,uncertain
+record_000609,4,keep_one,record_034646,record_031376,lost,lost
+record_000609,4,vl_dedup,record_000609,record_031376 record_034646,lost,uncertain
+record_000609,4,vl_dedup,record_027960,record_031376 record_034646,covered_single,covered_single
+record_000609,4,vl_dedup_no_check,record_000609,record_031376,lost,uncertain
+record_000609,4,vl_dedup_no_check,record_027960,record_031376,lost,uncertain
+record_000609,4,vl_dedup_no_check,record_034646,record_031376,lost,lost
+record_000675,5,keep_one,record_010751,record_000675,lost,covered_single
+record_000675,5,keep_one,record_018450,record_000675,covered_single,covered_single
+record_000675,5,keep_one,record_023470,record_000675,lost,covered_single
+record_000675,5,keep_one,record_029668,record_000675,lost,covered_single
+record_000675,5,vl_dedup,record_023470,record_000675 record_010751 record_018450 record_029668,exact_repeat,exact_repeat
+record_000675,5,vl_dedup_no_check,record_023470,record_000675 record_010751 record_018450 record_029668,exact_repeat,exact_repeat
+record_000774,5,keep_one,record_000774,record_048172,lost,covered_single
+record_000774,5,keep_one,record_011393,record_048172,lost,lost
+record_000774,5,keep_one,record_018422,record_048172,lost,uncertain
+record_000774,5,keep_one,record_044997,record_048172,lost,uncertain
+record_000774,5,vl_dedup,record_000774,record_011393 record_018422 record_048172,covered_single,covered_single
+record_000774,5,vl_dedup,record_044997,record_011393 record_018422 record_048172,covered_single,covered_single
+record_000774,5,vl_dedup_no_check,record_000774,record_048172,lost,covered_single
+record_000774,5,vl_dedup_no_check,record_011393,record_048172,lost,lost
+record_000774,5,vl_dedup_no_check,record_018422,record_048172,lost,uncertain
+record_000774,5,vl_dedup_no_check,record_044997,record_048172,lost,uncertain
+record_000786,5,keep_one,record_000786,record_017515,lost,uncertain
+record_000786,5,keep_one,record_037783,record_017515,lost,uncertain
+record_000786,5,keep_one,record_044458,record_017515,covered_single,covered_single
+record_000786,5,keep_one,record_044615,record_017515,lost,uncertain
+record_000786,5,vl_dedup,record_044615,record_000786 record_017515 record_037783 record_044458,exact_repeat,exact_repeat
+record_000786,5,vl_dedup_no_check,record_044615,record_000786 record_017515 record_037783 record_044458,exact_repeat,exact_repeat
+record_000855,5,keep_one,record_005225,record_000855,lost,uncertain
+record_000855,5,keep_one,record_005780,record_000855,lost,covered_single
+record_000855,5,keep_one,record_017331,record_000855,lost,lost
+record_000855,5,keep_one,record_021652,record_000855,lost,covered_single
+record_000855,5,vl_dedup,record_021652,record_000855 record_005225 record_005780 record_017331,exact_repeat,exact_repeat
+record_000855,5,vl_dedup_no_check,record_021652,record_000855 record_005225 record_005780 record_017331,exact_repeat,exact_repeat
+record_000900,5,keep_one,record_000900,record_017850,covered_single,covered_single
+record_000900,5,keep_one,record_014023,record_017850,lost,uncertain
+record_000900,5,keep_one,record_040160,record_017850,lost,uncertain
+record_000900,5,keep_one,record_040371,record_017850,covered_single,covered_single
+record_000900,5,vl_dedup,record_000900,record_014023 record_017850 record_040160,covered_single,covered_single
+record_000900,5,vl_dedup,record_040371,record_014023 record_017850 record_040160,covered_single,covered_single
+record_000900,5,vl_dedup_no_check,record_000900,record_017850,covered_single,covered_single
+record_000900,5,vl_dedup_no_check,record_014023,record_017850,lost,uncertain
+record_000900,5,vl_dedup_no_check,record_040160,record_017850,lost,uncertain
+record_000900,5,vl_dedup_no_check,record_040371,record_017850,covered_single,covered_single
+record_000984,5,keep_one,record_000984,record_028411,lost,covered_single
+record_000984,5,keep_one,record_025503,record_028411,lost,uncertain
+record_000984,5,keep_one,record_038668,record_028411,lost,covered_single
+record_000984,5,keep_one,record_041022,record_028411,lost,covered_single
+record_000984,5,vl_dedup_no_check,record_000984,record_028411,lost,covered_single
+record_000984,5,vl_dedup_no_check,record_025503,record_028411,lost,uncertain
+record_000984,5,vl_dedup_no_check,record_038668,record_028411,lost,covered_single
+record_000984,5,vl_dedup_no_check,record_041022,record_028411,lost,covered_single
+record_001091,5,keep_one,record_001091,record_036452,lost,uncertain
+record_001091,5,keep_one,record_010140,record_036452,lost,lost
+record_001091,5,keep_one,record_023949,record_036452,lost,lost
+record_001091,5,keep_one,record_048275,record_036452,lost,lost
+record_001132,5,keep_one,record_005174,record_001132,lost,covered_single
+record_001132,5,keep_one,record_016500,record_001132,lost,uncertain
+record_001132,5,keep_one,record_037785,record_001132,lost,covered_single
+record_001132,5,keep_one,record_039416,record_001132,lost,uncertain
+record_001132,5,vl_dedup,record_039416,record_001132 record_005174 record_016500 record_037785,exact_repeat,exact_repeat
+record_001132,5,vl_dedup_no_check,record_039416,record_001132 record_005174 record_016500 record_037785,exact_repeat,exact_repeat
+record_001141,4,keep_one,record_001141,record_004676,lost,covered_single
+record_001141,4,keep_one,record_017239,record_004676,lost,covered_single
+record_001141,4,keep_one,record_048788,record_004676,lost,uncertain
+record_001191,5,keep_one,record_001191,record_022755,covered_single,covered_single
+record_001191,5,keep_one,record_003121,record_022755,lost,covered_single
+record_001191,5,keep_one,record_015658,record_022755,lost,lost
+record_001191,5,keep_one,record_039445,record_022755,covered_single,covered_single
+record_001191,5,vl_dedup,record_039445,record_001191 record_003121 record_015658 record_022755,exact_repeat,exact_repeat
+record_001191,5,vl_dedup_no_check,record_039445,record_001191 record_003121 record_015658 record_022755,exact_repeat,exact_repeat
+record_001232,4,keep_one,record_001232,record_021147,lost,covered_single
+record_001232,4,keep_one,record_026042,record_021147,lost,covered_single
+record_001232,4,keep_one,record_049597,record_021147,lost,covered_single
+record_001331,5,keep_one,record_006456,record_001331,lost,covered_single
+record_001331,5,keep_one,record_010816,record_001331,covered_single,covered_single
+record_001331,5,keep_one,record_024276,record_001331,lost,lost
+record_001331,5,keep_one,record_043309,record_001331,lost,lost
+record_001366,5,keep_one,record_001366,record_007887,lost,lost
+record_001366,5,keep_one,record_014858,record_007887,lost,lost
+record_001366,5,keep_one,record_038263,record_007887,lost,lost
+record_001366,5,keep_one,record_038968,record_007887,lost,lost
+record_001407,5,keep_one,record_001407,record_030714,lost,covered_single
+record_001407,5,keep_one,record_004634,record_030714,lost,covered_single
+record_001407,5,keep_one,record_013733,record_030714,lost,uncertain
+record_001407,5,keep_one,record_041558,record_030714,lost,lost
+record_001466,5,keep_one,record_001466,record_002722,lost,lost
+record_001466,5,keep_one,record_008110,record_002722,lost,lost
+record_001466,5,keep_one,record_021225,record_002722,lost,lost
+record_001466,5,keep_one,record_043026,record_002722,lost,lost
+record_001505,5,keep_one,record_013978,record_001505,covered_single,covered_single
+record_001505,5,keep_one,record_021091,record_001505,covered_single,covered_single
+record_001505,5,keep_one,record_033108,record_001505,lost,covered_single
+record_001505,5,keep_one,record_036987,record_001505,covered_single,covered_single
+record_001505,5,vl_dedup,record_036987,record_001505 record_013978 record_021091 record_033108,exact_repeat,exact_repeat
+record_001505,5,vl_dedup_no_check,record_036987,record_001505 record_013978 record_021091 record_033108,exact_repeat,exact_repeat
+record_001553,5,keep_one,record_001553,record_007917,lost,lost
+record_001553,5,keep_one,record_005925,record_007917,uncertain,uncertain
+record_001553,5,keep_one,record_032994,record_007917,lost,covered_single
+record_001553,5,keep_one,record_037223,record_007917,lost,lost
+record_001553,5,vl_dedup,record_032994,record_001553 record_005925 record_007917 record_037223,exact_repeat,exact_repeat
+record_001553,5,vl_dedup_no_check,record_032994,record_001553 record_005925 record_007917 record_037223,exact_repeat,exact_repeat
+record_001666,5,keep_one,record_001666,record_027978,covered_single,covered_single
+record_001666,5,keep_one,record_018063,record_027978,covered_single,covered_single
+record_001666,5,keep_one,record_032495,record_027978,lost,lost
+record_001666,5,keep_one,record_048223,record_027978,covered_single,covered_single
+record_001757,5,keep_one,record_001757,record_048007,lost,lost
+record_001757,5,keep_one,record_019575,record_048007,lost,covered_single
+record_001757,5,keep_one,record_047277,record_048007,lost,covered_single
+record_001757,5,keep_one,record_048764,record_048007,lost,covered_single
+record_001766,5,keep_one,record_001766,record_026043,lost,covered_single
+record_001766,5,keep_one,record_014544,record_026043,lost,uncertain
+record_001766,5,keep_one,record_016413,record_026043,lost,uncertain
+record_001766,5,keep_one,record_027425,record_026043,lost,covered_single
+record_001766,5,vl_dedup,record_027425,record_001766 record_014544 record_016413 record_026043,covered_single,covered_single
+record_001766,5,vl_dedup_no_check,record_027425,record_001766 record_014544 record_016413 record_026043,covered_single,covered_single
+record_001786,5,keep_one,record_001786,record_036451,lost,uncertain
+record_001786,5,keep_one,record_001905,record_036451,lost,covered_single
+record_001786,5,keep_one,record_039403,record_036451,lost,uncertain
+record_001786,5,keep_one,record_043211,record_036451,lost,uncertain
+record_001832,5,keep_one,record_001832,record_029610,lost,lost
+record_001832,5,keep_one,record_004077,record_029610,lost,lost
+record_001832,5,keep_one,record_009535,record_029610,lost,lost
+record_001832,5,keep_one,record_043764,record_029610,lost,uncertain
+record_001832,5,vl_dedup,record_043764,record_001832 record_004077 record_009535 record_029610,exact_repeat,exact_repeat
+record_001832,5,vl_dedup_no_check,record_043764,record_001832 record_004077 record_009535 record_029610,exact_repeat,exact_repeat
+record_001848,5,keep_one,record_022454,record_001848,lost,uncertain
+record_001848,5,keep_one,record_023481,record_001848,covered_single,covered_single
+record_001848,5,keep_one,record_025776,record_001848,lost,uncertain
+record_001848,5,keep_one,record_031060,record_001848,lost,lost
+record_001848,5,vl_dedup,record_031060,record_001848 record_022454 record_023481 record_025776,exact_repeat,exact_repeat
+record_001848,5,vl_dedup_no_check,record_031060,record_001848 record_022454 record_023481 record_025776,exact_repeat,exact_repeat
+record_001865,4,keep_one,record_001865,record_025205,lost,uncertain
+record_001865,4,keep_one,record_034849,record_025205,lost,uncertain
+record_001865,4,keep_one,record_046029,record_025205,lost,lost
+record_001904,5,keep_one,record_001904,record_021084,lost,lost
+record_001904,5,keep_one,record_011799,record_021084,lost,covered_single
+record_001904,5,keep_one,record_045336,record_021084,lost,uncertain
+record_001904,5,keep_one,record_046059,record_021084,lost,lost
+record_001904,5,vl_dedup,record_046059,record_001904 record_011799 record_021084 record_045336,covered_single,covered_single
+record_001904,5,vl_dedup_no_check,record_001904,record_011799 record_021084 record_045336,lost,lost
+record_001904,5,vl_dedup_no_check,record_046059,record_011799 record_021084 record_045336,lost,covered_single
+record_001990,5,keep_one,record_001990,record_047690,lost,lost
+record_001990,5,keep_one,record_003899,record_047690,lost,uncertain
+record_001990,5,keep_one,record_023761,record_047690,lost,uncertain
+record_001990,5,keep_one,record_029616,record_047690,lost,lost
+record_001990,5,vl_dedup,record_003899,record_001990 record_023761 record_029616 record_047690,exact_repeat,exact_repeat
+record_001990,5,vl_dedup_no_check,record_003899,record_001990 record_023761 record_029616 record_047690,exact_repeat,exact_repeat
+record_002016,5,keep_one,record_002016,record_019042,covered_single,uncertain
+record_002016,5,keep_one,record_002081,record_019042,lost,lost
+record_002016,5,keep_one,record_017415,record_019042,covered_single,covered_single
+record_002016,5,keep_one,record_025308,record_019042,lost,covered_single
+record_002016,5,vl_dedup_no_check,record_017415,record_019042,covered_single,covered_single
+record_002016,5,vl_dedup_no_check,record_025308,record_019042,lost,covered_single
+record_002106,5,keep_one,record_002106,record_044262,lost,uncertain
+record_002106,5,keep_one,record_028475,record_044262,lost,uncertain
+record_002106,5,keep_one,record_042070,record_044262,lost,covered_single
+record_002106,5,keep_one,record_046341,record_044262,lost,lost
+record_002118,5,keep_one,record_002118,record_029681,lost,uncertain
+record_002118,5,keep_one,record_005001,record_029681,lost,uncertain
+record_002118,5,keep_one,record_016537,record_029681,lost,lost
+record_002118,5,keep_one,record_019263,record_029681,lost,uncertain
+record_002134,5,keep_one,record_002134,record_004318,lost,uncertain
+record_002134,5,keep_one,record_020657,record_004318,lost,lost
+record_002134,5,keep_one,record_028231,record_004318,lost,covered_single
+record_002134,5,keep_one,record_049366,record_004318,lost,covered_single
+record_002134,5,vl_dedup,record_028231,record_002134 record_004318 record_020657 record_049366,covered_single,covered_single
+record_002134,5,vl_dedup_no_check,record_028231,record_002134 record_004318 record_020657 record_049366,covered_single,covered_single
+record_002299,5,keep_one,record_002299,record_006370,lost,lost
+record_002299,5,keep_one,record_005675,record_006370,covered_single,covered_single
+record_002299,5,keep_one,record_011974,record_006370,lost,uncertain
+record_002299,5,keep_one,record_020304,record_006370,lost,lost
+record_002318,5,keep_one,record_002318,record_010239,lost,uncertain
+record_002318,5,keep_one,record_007114,record_010239,lost,covered_single
+record_002318,5,keep_one,record_023500,record_010239,lost,lost
+record_002318,5,keep_one,record_029291,record_010239,lost,lost
+record_002322,4,keep_one,record_030533,record_002322,lost,lost
+record_002322,4,keep_one,record_037661,record_002322,lost,lost
+record_002322,4,keep_one,record_041811,record_002322,lost,uncertain
+record_002522,5,keep_one,record_002522,record_032294,lost,lost
+record_002522,5,keep_one,record_014899,record_032294,covered_single,covered_single
+record_002522,5,keep_one,record_020429,record_032294,lost,covered_single
+record_002522,5,keep_one,record_047717,record_032294,lost,lost
+record_002664,5,keep_one,record_002664,record_026552,lost,uncertain
+record_002664,5,keep_one,record_014380,record_026552,lost,covered_single
+record_002664,5,keep_one,record_031004,record_026552,lost,uncertain
+record_002664,5,keep_one,record_037755,record_026552,covered_single,covered_single
+record_002664,5,vl_dedup,record_037755,record_002664 record_014380 record_026552 record_031004,exact_repeat,exact_repeat
+record_002664,5,vl_dedup_no_check,record_002664,record_014380 record_026552 record_031004 record_037755,lost,uncertain
+record_002664,5,vl_dedup_no_check,record_037755,record_014380 record_026552 record_031004,exact_repeat,exact_repeat
+record_002726,5,keep_one,record_002726,record_035820,covered_single,covered_single
+record_002726,5,keep_one,record_006789,record_035820,lost,uncertain
+record_002726,5,keep_one,record_009779,record_035820,lost,lost
+record_002726,5,keep_one,record_010758,record_035820,covered_single,covered_single
+record_002940,5,keep_one,record_002940,record_015548,lost,covered_single
+record_002940,5,keep_one,record_011122,record_015548,lost,uncertain
+record_002940,5,keep_one,record_033382,record_015548,lost,uncertain
+record_002940,5,keep_one,record_048257,record_015548,lost,covered_single
+record_002998,4,keep_one,record_002998,record_031368,lost,lost
+record_002998,4,keep_one,record_016802,record_031368,lost,uncertain
+record_002998,4,keep_one,record_034705,record_031368,lost,lost
+record_003128,5,keep_one,record_003128,record_011538,lost,lost
+record_003128,5,keep_one,record_008515,record_011538,lost,uncertain
+record_003128,5,keep_one,record_033160,record_011538,lost,uncertain
+record_003128,5,keep_one,record_034157,record_011538,covered_single,covered_single
+record_003313,5,keep_one,record_003313,record_007790,lost,lost
+record_003313,5,keep_one,record_011429,record_007790,lost,covered_single
+record_003313,5,keep_one,record_018879,record_007790,lost,uncertain
+record_003313,5,keep_one,record_034258,record_007790,lost,covered_single
+record_003313,5,vl_dedup,record_011429,record_003313 record_007790 record_018879,covered_single,covered_single
+record_003313,5,vl_dedup,record_034258,record_003313 record_007790 record_018879,lost,covered_single
+record_003313,5,vl_dedup_no_check,record_003313,record_007790,lost,lost
+record_003313,5,vl_dedup_no_check,record_011429,record_007790,lost,covered_single
+record_003313,5,vl_dedup_no_check,record_018879,record_007790,lost,uncertain
+record_003313,5,vl_dedup_no_check,record_034258,record_007790,lost,covered_single
+record_003334,5,keep_one,record_016260,record_003334,lost,covered_single
+record_003334,5,keep_one,record_037623,record_003334,covered_single,covered_single
+record_003334,5,keep_one,record_042231,record_003334,lost,uncertain
+record_003334,5,keep_one,record_047087,record_003334,covered_single,covered_single
+record_003334,5,vl_dedup,record_016260,record_003334 record_042231 record_047087,covered_single,covered_single
+record_003334,5,vl_dedup,record_037623,record_003334 record_042231 record_047087,covered_single,covered_single
+record_003334,5,vl_dedup_no_check,record_016260,record_003334,lost,covered_single
+record_003334,5,vl_dedup_no_check,record_037623,record_003334,covered_single,covered_single
+record_003334,5,vl_dedup_no_check,record_042231,record_003334,lost,uncertain
+record_003334,5,vl_dedup_no_check,record_047087,record_003334,covered_single,covered_single
+record_003355,5,keep_one,record_003355,record_028503,lost,lost
+record_003355,5,keep_one,record_014567,record_028503,lost,lost
+record_003355,5,keep_one,record_037382,record_028503,lost,covered_single
+record_003355,5,keep_one,record_042775,record_028503,uncertain,uncertain
+record_003355,5,vl_dedup,record_042775,record_003355 record_014567 record_028503 record_037382,covered_single,covered_single
+record_003355,5,vl_dedup_no_check,record_003355,record_014567 record_028503,covered_single,covered_single
+record_003355,5,vl_dedup_no_check,record_037382,record_014567 record_028503,covered_joint,covered_single
+record_003355,5,vl_dedup_no_check,record_042775,record_014567 record_028503,covered_single,covered_single
+record_003398,5,keep_one,record_003398,record_033073,covered_single,covered_single
+record_003398,5,keep_one,record_018791,record_033073,lost,covered_single
+record_003398,5,keep_one,record_018853,record_033073,lost,lost
+record_003398,5,keep_one,record_025622,record_033073,lost,uncertain
+record_003398,5,vl_dedup,record_018853,record_003398 record_018791 record_025622 record_033073,exact_repeat,exact_repeat
+record_003398,5,vl_dedup_no_check,record_018853,record_003398 record_018791 record_025622 record_033073,exact_repeat,exact_repeat
+record_003531,5,keep_one,record_003531,record_012715,lost,uncertain
+record_003531,5,keep_one,record_017952,record_012715,lost,covered_single
+record_003531,5,keep_one,record_022296,record_012715,lost,uncertain
+record_003531,5,keep_one,record_023682,record_012715,lost,covered_single
+record_003531,5,vl_dedup,record_023682,record_003531 record_012715 record_017952 record_022296,exact_repeat,exact_repeat
+record_003531,5,vl_dedup_no_check,record_023682,record_003531 record_012715 record_017952 record_022296,exact_repeat,exact_repeat
+record_003599,5,keep_one,record_005089,record_003599,lost,uncertain
+record_003599,5,keep_one,record_010320,record_003599,lost,lost
+record_003599,5,keep_one,record_013145,record_003599,lost,lost
+record_003599,5,keep_one,record_025406,record_003599,covered_single,covered_single
+record_004051,5,keep_one,record_004051,record_010265,covered_single,covered_single
+record_004051,5,keep_one,record_006063,record_010265,lost,uncertain
+record_004051,5,keep_one,record_032224,record_010265,lost,covered_single
+record_004051,5,keep_one,record_041189,record_010265,lost,covered_single
+record_004051,5,vl_dedup_no_check,record_006063,record_004051 record_010265 record_032224 record_041189,lost,lost
+record_004142,5,keep_one,record_004142,record_028817,lost,lost
+record_004142,5,keep_one,record_006064,record_028817,lost,lost
+record_004142,5,keep_one,record_013875,record_028817,lost,lost
+record_004142,5,keep_one,record_019286,record_028817,lost,covered_single
+record_004142,5,vl_dedup,record_013875,record_004142 record_006064 record_019286 record_028817,exact_repeat,exact_repeat
+record_004142,5,vl_dedup_no_check,record_013875,record_004142 record_006064 record_019286 record_028817,exact_repeat,exact_repeat
+record_004168,4,keep_one,record_015718,record_004168,covered_single,covered_single
+record_004168,4,keep_one,record_023136,record_004168,lost,covered_single
+record_004168,4,keep_one,record_032190,record_004168,lost,lost
+record_004225,5,keep_one,record_024053,record_004225,covered_single,covered_single
+record_004225,5,keep_one,record_024360,record_004225,lost,lost
+record_004225,5,keep_one,record_037212,record_004225,lost,uncertain
+record_004225,5,keep_one,record_037803,record_004225,lost,covered_single
+record_004225,5,vl_dedup,record_024053,record_004225 record_024360 record_037212 record_037803,exact_repeat,exact_repeat
+record_004225,5,vl_dedup_no_check,record_024053,record_004225 record_024360 record_037212 record_037803,exact_repeat,exact_repeat
+record_004264,5,keep_one,record_004264,record_016714,lost,uncertain
+record_004264,5,keep_one,record_005550,record_016714,lost,lost
+record_004264,5,keep_one,record_035647,record_016714,lost,covered_single
+record_004264,5,keep_one,record_048636,record_016714,lost,lost
+record_004276,5,keep_one,record_004895,record_004276,lost,lost
+record_004276,5,keep_one,record_013667,record_004276,lost,lost
+record_004276,5,keep_one,record_032792,record_004276,lost,uncertain
+record_004276,5,keep_one,record_045404,record_004276,lost,lost
+record_004299,4,keep_one,record_004299,record_040365,lost,covered_single
+record_004299,4,keep_one,record_005868,record_040365,lost,lost
+record_004299,4,keep_one,record_043530,record_040365,lost,covered_single
+record_004403,5,keep_one,record_004403,record_049165,lost,uncertain
+record_004403,5,keep_one,record_006264,record_049165,covered_single,covered_single
+record_004403,5,keep_one,record_020359,record_049165,lost,uncertain
+record_004403,5,keep_one,record_046504,record_049165,lost,uncertain
+record_004495,4,keep_one,record_004495,record_031934,lost,lost
+record_004495,4,keep_one,record_007770,record_031934,lost,covered_single
+record_004495,4,keep_one,record_025091,record_031934,lost,lost
+record_004495,4,vl_dedup_no_check,record_004495,record_031934,lost,lost
+record_004495,4,vl_dedup_no_check,record_007770,record_031934,lost,covered_single
+record_004495,4,vl_dedup_no_check,record_025091,record_031934,lost,lost
+record_004498,5,keep_one,record_004498,record_006257,lost,lost
+record_004498,5,keep_one,record_011002,record_006257,lost,covered_single
+record_004498,5,keep_one,record_018216,record_006257,lost,uncertain
+record_004498,5,keep_one,record_048755,record_006257,lost,uncertain
+record_004572,5,keep_one,record_004572,record_027608,covered_single,covered_single
+record_004572,5,keep_one,record_021082,record_027608,covered_single,covered_single
+record_004572,5,keep_one,record_031642,record_027608,lost,lost
+record_004572,5,keep_one,record_036782,record_027608,lost,uncertain
+record_004834,5,keep_one,record_006331,record_004834,covered_single,covered_single
+record_004834,5,keep_one,record_009030,record_004834,covered_single,covered_single
+record_004834,5,keep_one,record_014823,record_004834,covered_single,covered_single
+record_004834,5,keep_one,record_024133,record_004834,covered_single,covered_single
+record_004834,5,vl_dedup,record_009030,record_004834 record_006331 record_014823 record_024133,exact_repeat,exact_repeat
+record_004834,5,vl_dedup_no_check,record_009030,record_004834 record_006331 record_014823 record_024133,exact_repeat,exact_repeat
+record_004908,4,keep_one,record_004908,record_034664,lost,covered_single
+record_004908,4,keep_one,record_014833,record_034664,covered_single,covered_single
+record_004908,4,keep_one,record_036190,record_034664,lost,covered_single
+record_004925,5,keep_one,record_004925,record_049303,lost,covered_single
+record_004925,5,keep_one,record_025092,record_049303,lost,lost
+record_004925,5,keep_one,record_026633,record_049303,lost,covered_single
+record_004925,5,keep_one,record_045480,record_049303,lost,lost
+record_004964,5,keep_one,record_004964,record_045913,lost,uncertain
+record_004964,5,keep_one,record_009738,record_045913,lost,covered_single
+record_004964,5,keep_one,record_010013,record_045913,lost,lost
+record_004964,5,keep_one,record_041302,record_045913,lost,uncertain
+record_004978,5,keep_one,record_005352,record_004978,lost,lost
+record_004978,5,keep_one,record_016884,record_004978,lost,lost
+record_004978,5,keep_one,record_035973,record_004978,lost,uncertain
+record_004978,5,keep_one,record_043176,record_004978,lost,uncertain
+record_005012,5,keep_one,record_005012,record_033622,lost,lost
+record_005012,5,keep_one,record_018086,record_033622,lost,covered_single
+record_005012,5,keep_one,record_024415,record_033622,covered_single,covered_single
+record_005012,5,keep_one,record_030829,record_033622,lost,lost
+record_005047,4,keep_one,record_005047,record_008095,lost,covered_single
+record_005047,4,keep_one,record_020887,record_008095,lost,covered_single
+record_005047,4,keep_one,record_037373,record_008095,lost,covered_single
+record_005047,4,vl_dedup_no_check,record_005047,record_008095,lost,covered_single
+record_005047,4,vl_dedup_no_check,record_020887,record_008095,lost,covered_single
+record_005047,4,vl_dedup_no_check,record_037373,record_008095,lost,covered_single
+record_005098,5,keep_one,record_005098,record_036447,lost,covered_single
+record_005098,5,keep_one,record_009019,record_036447,lost,covered_single
+record_005098,5,keep_one,record_029480,record_036447,lost,uncertain
+record_005098,5,keep_one,record_032513,record_036447,lost,lost
+record_005098,5,vl_dedup,record_032513,record_005098 record_009019 record_029480 record_036447,exact_repeat,exact_repeat
+record_005098,5,vl_dedup_no_check,record_032513,record_005098 record_009019 record_029480 record_036447,exact_repeat,exact_repeat
+record_005119,5,keep_one,record_019363,record_005119,lost,uncertain
+record_005119,5,keep_one,record_025170,record_005119,lost,uncertain
+record_005119,5,keep_one,record_034996,record_005119,lost,uncertain
+record_005119,5,keep_one,record_045031,record_005119,lost,lost
+record_005164,5,keep_one,record_005164,record_021389,lost,lost
+record_005164,5,keep_one,record_009280,record_021389,lost,uncertain
+record_005164,5,keep_one,record_041802,record_021389,lost,lost
+record_005164,5,keep_one,record_047975,record_021389,lost,uncertain
+record_005168,5,keep_one,record_005168,record_028905,lost,lost
+record_005168,5,keep_one,record_005762,record_028905,lost,lost
+record_005168,5,keep_one,record_006702,record_028905,lost,lost
+record_005168,5,keep_one,record_026174,record_028905,lost,uncertain
+record_005187,5,keep_one,record_008618,record_005187,lost,lost
+record_005187,5,keep_one,record_034339,record_005187,lost,lost
+record_005187,5,keep_one,record_034472,record_005187,lost,lost
+record_005187,5,keep_one,record_047922,record_005187,lost,lost
+record_005204,5,keep_one,record_018569,record_005204,lost,lost
+record_005204,5,keep_one,record_019262,record_005204,covered_single,covered_single
+record_005204,5,keep_one,record_031346,record_005204,lost,covered_single
+record_005204,5,keep_one,record_038578,record_005204,lost,lost
+record_005204,5,vl_dedup,record_019262,record_005204 record_018569 record_031346 record_038578,exact_repeat,exact_repeat
+record_005204,5,vl_dedup_no_check,record_019262,record_005204 record_018569 record_031346 record_038578,exact_repeat,exact_repeat
+record_005348,4,keep_one,record_009068,record_005348,lost,lost
+record_005348,4,keep_one,record_033613,record_005348,lost,uncertain
+record_005348,4,keep_one,record_046749,record_005348,lost,lost
+record_005396,5,keep_one,record_005396,record_044205,lost,lost
+record_005396,5,keep_one,record_026323,record_044205,covered_single,covered_single
+record_005396,5,keep_one,record_035570,record_044205,lost,lost
+record_005396,5,keep_one,record_046563,record_044205,covered_single,covered_single
+record_005572,5,keep_one,record_005572,record_019745,lost,uncertain
+record_005572,5,keep_one,record_008266,record_019745,lost,uncertain
+record_005572,5,keep_one,record_010943,record_019745,lost,covered_single
+record_005572,5,keep_one,record_041426,record_019745,lost,lost
+record_005586,5,keep_one,record_005586,record_040755,lost,uncertain
+record_005586,5,keep_one,record_025007,record_040755,lost,uncertain
+record_005586,5,keep_one,record_031964,record_040755,lost,lost
+record_005586,5,keep_one,record_042978,record_040755,lost,lost
+record_005634,5,keep_one,record_005634,record_047702,lost,uncertain
+record_005634,5,keep_one,record_012282,record_047702,lost,lost
+record_005634,5,keep_one,record_016903,record_047702,lost,uncertain
+record_005634,5,keep_one,record_019170,record_047702,lost,lost
+record_005671,5,keep_one,record_005671,record_014727,lost,lost
+record_005671,5,keep_one,record_009046,record_014727,lost,covered_single
+record_005671,5,keep_one,record_010383,record_014727,lost,uncertain
+record_005671,5,keep_one,record_037587,record_014727,lost,uncertain
+record_005671,5,vl_dedup,record_037587,record_005671 record_009046 record_010383 record_014727,exact_repeat,exact_repeat
+record_005671,5,vl_dedup_no_check,record_037587,record_005671 record_009046 record_010383 record_014727,exact_repeat,exact_repeat
+record_005679,5,keep_one,record_014723,record_005679,lost,uncertain
+record_005679,5,keep_one,record_018253,record_005679,lost,lost
+record_005679,5,keep_one,record_048817,record_005679,lost,lost
+record_005679,5,keep_one,record_049372,record_005679,lost,lost
+record_005684,5,keep_one,record_005684,record_015314,lost,uncertain
+record_005684,5,keep_one,record_034923,record_015314,lost,lost
+record_005684,5,keep_one,record_035894,record_015314,covered_single,uncertain
+record_005684,5,keep_one,record_038265,record_015314,lost,lost
+record_005684,5,vl_dedup_no_check,record_038265,record_005684 record_015314 record_034923 record_035894,lost,uncertain
+record_005707,4,keep_one,record_005707,record_042431,lost,lost
+record_005707,4,keep_one,record_016390,record_042431,lost,covered_single
+record_005707,4,keep_one,record_027467,record_042431,lost,uncertain
+record_006077,5,keep_one,record_006077,record_023001,lost,lost
+record_006077,5,keep_one,record_023349,record_023001,lost,lost
+record_006077,5,keep_one,record_032041,record_023001,lost,lost
+record_006077,5,keep_one,record_047584,record_023001,lost,lost
+record_006126,5,keep_one,record_006126,record_012433,lost,lost
+record_006126,5,keep_one,record_019987,record_012433,lost,lost
+record_006126,5,keep_one,record_024791,record_012433,lost,lost
+record_006126,5,keep_one,record_031811,record_012433,lost,lost
+record_006127,5,keep_one,record_006127,record_036513,lost,lost
+record_006127,5,keep_one,record_018997,record_036513,lost,lost
+record_006127,5,keep_one,record_033889,record_036513,lost,lost
+record_006127,5,keep_one,record_044960,record_036513,lost,lost
+record_006154,5,keep_one,record_007470,record_006154,lost,lost
+record_006154,5,keep_one,record_008504,record_006154,lost,uncertain
+record_006154,5,keep_one,record_020646,record_006154,covered_single,covered_single
+record_006154,5,keep_one,record_039142,record_006154,lost,uncertain
+record_006243,4,keep_one,record_017469,record_006243,lost,uncertain
+record_006243,4,keep_one,record_046335,record_006243,lost,lost
+record_006243,4,keep_one,record_049193,record_006243,lost,uncertain
+record_006248,5,keep_one,record_025763,record_006248,covered_single,covered_single
+record_006248,5,keep_one,record_029184,record_006248,covered_single,covered_single
+record_006248,5,keep_one,record_031131,record_006248,covered_single,covered_single
+record_006248,5,keep_one,record_049769,record_006248,covered_single,covered_single
+record_006277,5,keep_one,record_006277,record_006583,lost,lost
+record_006277,5,keep_one,record_014227,record_006583,lost,lost
+record_006277,5,keep_one,record_014674,record_006583,lost,uncertain
+record_006277,5,keep_one,record_036340,record_006583,lost,lost
+record_006277,5,vl_dedup,record_014227,record_006277 record_006583 record_014674 record_036340,exact_repeat,exact_repeat
+record_006277,5,vl_dedup_no_check,record_014227,record_006277 record_006583 record_014674 record_036340,exact_repeat,exact_repeat
+record_006289,5,keep_one,record_006289,record_023321,lost,uncertain
+record_006289,5,keep_one,record_011190,record_023321,lost,lost
+record_006289,5,keep_one,record_024153,record_023321,lost,lost
+record_006289,5,keep_one,record_033438,record_023321,lost,lost
+record_006534,4,keep_one,record_006534,record_048653,lost,lost
+record_006534,4,keep_one,record_027163,record_048653,lost,covered_single
+record_006534,4,keep_one,record_044094,record_048653,lost,covered_single
+record_006534,4,vl_dedup,record_044094,record_006534 record_027163 record_048653,covered_joint,covered_joint
+record_006534,4,vl_dedup_no_check,record_027163,record_006534 record_048653,covered_joint,covered_single
+record_006534,4,vl_dedup_no_check,record_044094,record_006534 record_048653,covered_joint,covered_single
+record_007012,5,keep_one,record_007012,record_014939,lost,covered_single
+record_007012,5,keep_one,record_021426,record_014939,covered_single,covered_single
+record_007012,5,keep_one,record_021742,record_014939,covered_single,covered_single
+record_007012,5,keep_one,record_039481,record_014939,covered_single,covered_single
+record_007012,5,vl_dedup,record_007012,record_014939,lost,covered_single
+record_007012,5,vl_dedup,record_021426,record_014939,covered_single,covered_single
+record_007012,5,vl_dedup,record_021742,record_014939,covered_single,covered_single
+record_007012,5,vl_dedup,record_039481,record_014939,covered_single,covered_single
+record_007012,5,vl_dedup_no_check,record_007012,record_014939,lost,covered_single
+record_007012,5,vl_dedup_no_check,record_021426,record_014939,covered_single,covered_single
+record_007012,5,vl_dedup_no_check,record_021742,record_014939,covered_single,covered_single
+record_007012,5,vl_dedup_no_check,record_039481,record_014939,covered_single,covered_single
+record_007055,5,keep_one,record_007055,record_026141,lost,lost
+record_007055,5,keep_one,record_009550,record_026141,covered_single,covered_single
+record_007055,5,keep_one,record_018360,record_026141,lost,covered_single
+record_007055,5,keep_one,record_043234,record_026141,lost,covered_single
+record_007219,5,keep_one,record_007219,record_045019,lost,uncertain
+record_007219,5,keep_one,record_021845,record_045019,lost,uncertain
+record_007219,5,keep_one,record_025485,record_045019,covered_single,covered_single
+record_007219,5,keep_one,record_034850,record_045019,lost,uncertain
+record_007268,5,keep_one,record_018898,record_007268,lost,uncertain
+record_007268,5,keep_one,record_028177,record_007268,covered_single,covered_single
+record_007268,5,keep_one,record_029833,record_007268,lost,lost
+record_007268,5,keep_one,record_031987,record_007268,covered_single,covered_single
+record_007289,5,keep_one,record_007289,record_035983,lost,covered_single
+record_007289,5,keep_one,record_012053,record_035983,lost,covered_single
+record_007289,5,keep_one,record_018766,record_035983,lost,lost
+record_007289,5,keep_one,record_020323,record_035983,lost,covered_single
+record_007339,5,keep_one,record_007339,record_014684,lost,lost
+record_007339,5,keep_one,record_017763,record_014684,lost,lost
+record_007339,5,keep_one,record_025345,record_014684,lost,covered_single
+record_007339,5,keep_one,record_040199,record_014684,lost,uncertain
+record_007395,5,keep_one,record_013556,record_007395,covered_single,covered_single
+record_007395,5,keep_one,record_018892,record_007395,lost,lost
+record_007395,5,keep_one,record_039244,record_007395,lost,uncertain
+record_007395,5,keep_one,record_040569,record_007395,lost,uncertain
+record_007596,5,keep_one,record_014194,record_007596,lost,uncertain
+record_007596,5,keep_one,record_016268,record_007596,covered_single,covered_single
+record_007596,5,keep_one,record_017604,record_007596,covered_single,covered_single
+record_007596,5,keep_one,record_035879,record_007596,covered_single,covered_single
+record_007596,5,vl_dedup,record_016268,record_007596 record_014194,covered_single,covered_single
+record_007596,5,vl_dedup,record_017604,record_007596 record_014194,covered_single,covered_single
+record_007596,5,vl_dedup,record_035879,record_007596 record_014194,covered_single,covered_single
+record_007596,5,vl_dedup_no_check,record_014194,record_007596,lost,uncertain
+record_007596,5,vl_dedup_no_check,record_016268,record_007596,covered_single,covered_single
+record_007596,5,vl_dedup_no_check,record_017604,record_007596,covered_single,covered_single
+record_007596,5,vl_dedup_no_check,record_035879,record_007596,covered_single,covered_single
+record_007811,5,keep_one,record_032362,record_007811,lost,uncertain
+record_007811,5,keep_one,record_036930,record_007811,lost,uncertain
+record_007811,5,keep_one,record_037597,record_007811,lost,uncertain
+record_007811,5,keep_one,record_039067,record_007811,lost,uncertain
+record_007811,5,vl_dedup,record_039067,record_007811 record_032362 record_036930 record_037597,exact_repeat,exact_repeat
+record_007811,5,vl_dedup_no_check,record_039067,record_007811 record_032362 record_036930 record_037597,exact_repeat,exact_repeat
+record_007877,5,keep_one,record_007877,record_047796,lost,uncertain
+record_007877,5,keep_one,record_040678,record_047796,covered_single,covered_single
+record_007877,5,keep_one,record_042979,record_047796,lost,lost
+record_007877,5,keep_one,record_045788,record_047796,lost,lost
+record_008398,5,keep_one,record_011189,record_008398,covered_single,covered_single
+record_008398,5,keep_one,record_024009,record_008398,covered_single,covered_single
+record_008398,5,keep_one,record_026996,record_008398,lost,covered_single
+record_008398,5,keep_one,record_042316,record_008398,covered_single,covered_single
+record_008398,5,vl_dedup,record_011189,record_008398 record_024009 record_026996 record_042316,exact_repeat,exact_repeat
+record_008398,5,vl_dedup_no_check,record_011189,record_008398 record_024009 record_026996 record_042316,exact_repeat,exact_repeat
+record_008420,5,keep_one,record_008420,record_041594,lost,lost
+record_008420,5,keep_one,record_011673,record_041594,lost,lost
+record_008420,5,keep_one,record_013141,record_041594,lost,lost
+record_008420,5,keep_one,record_044201,record_041594,lost,lost
+record_008420,5,vl_dedup,record_044201,record_008420 record_011673 record_013141 record_041594,exact_repeat,exact_repeat
+record_008420,5,vl_dedup_no_check,record_044201,record_008420 record_011673 record_013141 record_041594,exact_repeat,exact_repeat
+record_008437,5,keep_one,record_008437,record_018502,covered_single,covered_single
+record_008437,5,keep_one,record_017704,record_018502,covered_single,covered_single
+record_008437,5,keep_one,record_034410,record_018502,lost,uncertain
+record_008437,5,keep_one,record_049117,record_018502,lost,uncertain
+record_008539,5,keep_one,record_008539,record_049904,lost,lost
+record_008539,5,keep_one,record_016021,record_049904,lost,lost
+record_008539,5,keep_one,record_016711,record_049904,lost,covered_single
+record_008539,5,keep_one,record_036675,record_049904,lost,uncertain
+record_008539,5,vl_dedup_no_check,record_036675,record_008539 record_016021 record_049904,lost,lost
+record_008558,4,keep_one,record_008558,record_021954,lost,covered_single
+record_008558,4,keep_one,record_010745,record_021954,lost,uncertain
+record_008558,4,keep_one,record_046375,record_021954,covered_single,covered_single
+record_008559,5,keep_one,record_021953,record_008559,covered_single,covered_single
+record_008559,5,keep_one,record_025917,record_008559,lost,lost
+record_008559,5,keep_one,record_028999,record_008559,covered_single,covered_single
+record_008559,5,keep_one,record_038646,record_008559,covered_single,covered_single
+record_008559,5,vl_dedup,record_028999,record_008559 record_021953 record_025917 record_038646,exact_repeat,exact_repeat
+record_008559,5,vl_dedup_no_check,record_028999,record_008559 record_021953 record_025917 record_038646,exact_repeat,exact_repeat
+record_008581,5,keep_one,record_008581,record_014517,lost,lost
+record_008581,5,keep_one,record_017298,record_014517,covered_single,covered_single
+record_008581,5,keep_one,record_023197,record_014517,covered_single,covered_single
+record_008581,5,keep_one,record_041783,record_014517,lost,lost
+record_008708,5,keep_one,record_008708,record_011468,lost,covered_single
+record_008708,5,keep_one,record_023224,record_011468,lost,uncertain
+record_008708,5,keep_one,record_025228,record_011468,lost,lost
+record_008708,5,keep_one,record_039104,record_011468,lost,uncertain
+record_008728,5,keep_one,record_008728,record_019434,lost,lost
+record_008728,5,keep_one,record_011400,record_019434,lost,lost
+record_008728,5,keep_one,record_031013,record_019434,lost,uncertain
+record_008728,5,keep_one,record_040566,record_019434,lost,uncertain
+record_008729,5,keep_one,record_008729,record_012733,covered_single,covered_single
+record_008729,5,keep_one,record_017430,record_012733,lost,uncertain
+record_008729,5,keep_one,record_020789,record_012733,lost,covered_single
+record_008729,5,keep_one,record_021404,record_012733,lost,lost
+record_008836,5,keep_one,record_008836,record_039309,lost,lost
+record_008836,5,keep_one,record_010361,record_039309,covered_single,covered_single
+record_008836,5,keep_one,record_016297,record_039309,covered_single,covered_single
+record_008836,5,keep_one,record_029858,record_039309,lost,lost
+record_008901,5,keep_one,record_008901,record_048628,covered_single,covered_single
+record_008901,5,keep_one,record_012526,record_048628,lost,lost
+record_008901,5,keep_one,record_029481,record_048628,covered_single,covered_single
+record_008901,5,keep_one,record_045704,record_048628,lost,lost
+record_008901,5,vl_dedup,record_008901,record_012526 record_045704 record_048628,covered_single,covered_single
+record_008901,5,vl_dedup,record_029481,record_012526 record_045704 record_048628,covered_single,covered_single
+record_008901,5,vl_dedup_no_check,record_008901,record_048628,covered_single,covered_single
+record_008901,5,vl_dedup_no_check,record_012526,record_048628,lost,lost
+record_008901,5,vl_dedup_no_check,record_029481,record_048628,covered_single,covered_single
+record_008901,5,vl_dedup_no_check,record_045704,record_048628,lost,lost
+record_009021,5,keep_one,record_009021,record_025915,lost,uncertain
+record_009021,5,keep_one,record_012664,record_025915,lost,lost
+record_009021,5,keep_one,record_017738,record_025915,lost,uncertain
+record_009021,5,keep_one,record_022229,record_025915,uncertain,covered_single
+record_009021,5,vl_dedup,record_017738,record_009021 record_012664 record_022229 record_025915,exact_repeat,exact_repeat
+record_009021,5,vl_dedup_no_check,record_017738,record_009021 record_012664 record_022229 record_025915,exact_repeat,exact_repeat
+record_009095,5,keep_one,record_009095,record_026369,covered_single,covered_single
+record_009095,5,keep_one,record_016263,record_026369,covered_single,covered_single
+record_009095,5,keep_one,record_020866,record_026369,covered_single,covered_single
+record_009095,5,keep_one,record_042072,record_026369,lost,uncertain
+record_009281,5,keep_one,record_035549,record_009281,lost,uncertain
+record_009281,5,keep_one,record_041524,record_009281,lost,lost
+record_009281,5,keep_one,record_048545,record_009281,lost,uncertain
+record_009281,5,keep_one,record_049607,record_009281,covered_single,covered_single
+record_009281,5,vl_dedup,record_049607,record_009281 record_035549 record_041524 record_048545,covered_single,covered_single
+record_009281,5,vl_dedup_no_check,record_049607,record_009281 record_035549 record_041524 record_048545,covered_single,covered_single
+record_009333,5,keep_one,record_009333,record_041171,lost,lost
+record_009333,5,keep_one,record_026297,record_041171,covered_single,covered_single
+record_009333,5,keep_one,record_029263,record_041171,lost,uncertain
+record_009333,5,keep_one,record_032868,record_041171,covered_single,covered_single
+record_009333,5,vl_dedup,record_026297,record_009333 record_029263 record_041171,covered_single,covered_single
+record_009333,5,vl_dedup,record_032868,record_009333 record_029263 record_041171,covered_single,covered_single
+record_009333,5,vl_dedup_no_check,record_026297,record_009333 record_041171,covered_single,covered_single
+record_009333,5,vl_dedup_no_check,record_029263,record_009333 record_041171,lost,uncertain
+record_009333,5,vl_dedup_no_check,record_032868,record_009333 record_041171,covered_single,covered_single
+record_009527,5,keep_one,record_009527,record_031973,lost,covered_single
+record_009527,5,keep_one,record_011217,record_031973,lost,covered_single
+record_009527,5,keep_one,record_018949,record_031973,covered_single,covered_single
+record_009527,5,keep_one,record_031897,record_031973,lost,covered_single
+record_009527,5,vl_dedup,record_009527,record_011217 record_018949 record_031897 record_031973,covered_joint,covered_single
+record_009527,5,vl_dedup_no_check,record_009527,record_031973,lost,covered_single
+record_009527,5,vl_dedup_no_check,record_011217,record_031973,lost,covered_single
+record_009527,5,vl_dedup_no_check,record_018949,record_031973,covered_single,covered_single
+record_009527,5,vl_dedup_no_check,record_031897,record_031973,lost,covered_single
+record_009625,5,keep_one,record_009625,record_022034,covered_single,covered_single
+record_009625,5,keep_one,record_012795,record_022034,lost,covered_single
+record_009625,5,keep_one,record_014743,record_022034,lost,lost
+record_009625,5,keep_one,record_049676,record_022034,covered_single,covered_single
+record_010009,4,keep_one,record_015842,record_010009,lost,covered_single
+record_010009,4,keep_one,record_024705,record_010009,lost,covered_single
+record_010009,4,keep_one,record_039923,record_010009,lost,lost
+record_010009,4,vl_dedup_no_check,record_015842,record_010009,lost,covered_single
+record_010009,4,vl_dedup_no_check,record_024705,record_010009,lost,covered_single
+record_010009,4,vl_dedup_no_check,record_039923,record_010009,lost,lost
+record_010333,5,keep_one,record_010333,record_036893,covered_single,covered_single
+record_010333,5,keep_one,record_031043,record_036893,covered_single,covered_single
+record_010333,5,keep_one,record_031560,record_036893,lost,uncertain
+record_010333,5,keep_one,record_043112,record_036893,covered_single,covered_single
+record_010333,5,vl_dedup,record_010333,record_031560 record_036893,covered_single,covered_single
+record_010333,5,vl_dedup,record_031043,record_031560 record_036893,covered_single,covered_single
+record_010333,5,vl_dedup,record_043112,record_031560 record_036893,covered_single,covered_single
+record_010333,5,vl_dedup_no_check,record_010333,record_036893,covered_single,covered_single
+record_010333,5,vl_dedup_no_check,record_031043,record_036893,covered_single,covered_single
+record_010333,5,vl_dedup_no_check,record_031560,record_036893,lost,uncertain
+record_010333,5,vl_dedup_no_check,record_043112,record_036893,covered_single,covered_single
+record_010658,4,keep_one,record_022343,record_010658,lost,covered_single
+record_010658,4,keep_one,record_034022,record_010658,lost,uncertain
+record_010658,4,keep_one,record_047998,record_010658,lost,lost
+record_010667,5,keep_one,record_010667,record_034434,lost,lost
+record_010667,5,keep_one,record_024958,record_034434,lost,uncertain
+record_010667,5,keep_one,record_036049,record_034434,lost,uncertain
+record_010667,5,keep_one,record_036840,record_034434,lost,uncertain
+record_010712,5,keep_one,record_010712,record_031549,covered_single,covered_single
+record_010712,5,keep_one,record_018482,record_031549,covered_single,covered_single
+record_010712,5,keep_one,record_027628,record_031549,lost,lost
+record_010712,5,keep_one,record_031723,record_031549,lost,lost
+record_010712,5,vl_dedup,record_018482,record_010712 record_027628 record_031549 record_031723,exact_repeat,exact_repeat
+record_010712,5,vl_dedup_no_check,record_018482,record_010712 record_027628 record_031549 record_031723,exact_repeat,exact_repeat
+record_010979,5,keep_one,record_012384,record_010979,lost,lost
+record_010979,5,keep_one,record_021584,record_010979,lost,uncertain
+record_010979,5,keep_one,record_030676,record_010979,covered_single,covered_single
+record_010979,5,keep_one,record_038816,record_010979,lost,lost
+record_010979,5,vl_dedup,record_030676,record_010979 record_012384 record_021584 record_038816,exact_repeat,exact_repeat
+record_010979,5,vl_dedup_no_check,record_030676,record_010979 record_012384 record_021584 record_038816,exact_repeat,exact_repeat
+record_011003,5,keep_one,record_018714,record_011003,lost,covered_single
+record_011003,5,keep_one,record_029348,record_011003,lost,lost
+record_011003,5,keep_one,record_044576,record_011003,covered_single,covered_single
+record_011003,5,keep_one,record_046955,record_011003,lost,lost
+record_011100,5,keep_one,record_011100,record_034589,lost,lost
+record_011100,5,keep_one,record_011176,record_034589,covered_single,covered_single
+record_011100,5,keep_one,record_028682,record_034589,lost,covered_single
+record_011100,5,keep_one,record_048331,record_034589,lost,lost
+record_011213,4,keep_one,record_011213,record_026734,lost,lost
+record_011213,4,keep_one,record_034037,record_026734,lost,uncertain
+record_011213,4,keep_one,record_048996,record_026734,covered_single,covered_single
+record_011213,4,vl_dedup_no_check,record_048996,record_011213 record_026734 record_034037,covered_single,covered_single
+record_011229,5,keep_one,record_011229,record_013997,lost,lost
+record_011229,5,keep_one,record_024019,record_013997,lost,covered_single
+record_011229,5,keep_one,record_042650,record_013997,lost,lost
+record_011229,5,keep_one,record_043941,record_013997,lost,covered_single
+record_011242,5,keep_one,record_011242,record_044709,lost,uncertain
+record_011242,5,keep_one,record_020757,record_044709,lost,lost
+record_011242,5,keep_one,record_026922,record_044709,lost,uncertain
+record_011242,5,keep_one,record_035420,record_044709,lost,uncertain
+record_011668,5,keep_one,record_011668,record_034174,lost,lost
+record_011668,5,keep_one,record_020568,record_034174,lost,lost
+record_011668,5,keep_one,record_020805,record_034174,lost,lost
+record_011668,5,keep_one,record_035504,record_034174,lost,uncertain
+record_011822,4,keep_one,record_016227,record_011822,lost,lost
+record_011822,4,keep_one,record_033712,record_011822,lost,lost
+record_011822,4,keep_one,record_044227,record_011822,lost,uncertain
+record_011823,4,keep_one,record_011823,record_026818,covered_single,covered_single
+record_011823,4,keep_one,record_017086,record_026818,lost,lost
+record_011823,4,keep_one,record_045052,record_026818,lost,lost
+record_011912,5,keep_one,record_011912,record_015300,lost,uncertain
+record_011912,5,keep_one,record_033738,record_015300,lost,covered_single
+record_011912,5,keep_one,record_036861,record_015300,lost,lost
+record_011912,5,keep_one,record_042232,record_015300,lost,lost
+record_012069,4,keep_one,record_012069,record_045235,lost,uncertain
+record_012069,4,keep_one,record_014369,record_045235,lost,lost
+record_012069,4,keep_one,record_034231,record_045235,lost,lost
+record_012084,5,keep_one,record_012084,record_031626,lost,lost
+record_012084,5,keep_one,record_024673,record_031626,lost,covered_single
+record_012084,5,keep_one,record_028178,record_031626,lost,covered_single
+record_012084,5,keep_one,record_045334,record_031626,covered_single,covered_single
+record_012102,5,keep_one,record_012102,record_037531,lost,uncertain
+record_012102,5,keep_one,record_018638,record_037531,lost,lost
+record_012102,5,keep_one,record_027665,record_037531,lost,lost
+record_012102,5,keep_one,record_040342,record_037531,lost,uncertain
+record_012102,5,vl_dedup,record_027665,record_012102 record_018638 record_037531 record_040342,exact_repeat,exact_repeat
+record_012102,5,vl_dedup_no_check,record_027665,record_012102 record_018638 record_037531 record_040342,exact_repeat,exact_repeat
+record_012155,5,keep_one,record_026644,record_012155,lost,uncertain
+record_012155,5,keep_one,record_027853,record_012155,covered_single,covered_single
+record_012155,5,keep_one,record_034156,record_012155,covered_single,covered_single
+record_012155,5,keep_one,record_035351,record_012155,lost,covered_single
+record_012155,5,vl_dedup,record_026644,record_012155 record_034156,lost,uncertain
+record_012155,5,vl_dedup,record_027853,record_012155 record_034156,covered_single,covered_single
+record_012155,5,vl_dedup,record_035351,record_012155 record_034156,lost,covered_single
+record_012155,5,vl_dedup_no_check,record_026644,record_012155,lost,uncertain
+record_012155,5,vl_dedup_no_check,record_027853,record_012155,covered_single,covered_single
+record_012155,5,vl_dedup_no_check,record_034156,record_012155,covered_single,covered_single
+record_012155,5,vl_dedup_no_check,record_035351,record_012155,lost,covered_single
+record_012301,5,keep_one,record_012301,record_025819,lost,covered_single
+record_012301,5,keep_one,record_024810,record_025819,lost,uncertain
+record_012301,5,keep_one,record_030529,record_025819,lost,uncertain
+record_012301,5,keep_one,record_042671,record_025819,lost,lost
+record_012301,5,vl_dedup_no_check,record_024810,record_012301 record_025819 record_030529 record_042671,covered_joint,covered_joint
+record_012367,5,keep_one,record_018041,record_012367,covered_single,covered_single
+record_012367,5,keep_one,record_025469,record_012367,lost,uncertain
+record_012367,5,keep_one,record_029764,record_012367,lost,lost
+record_012367,5,keep_one,record_047809,record_012367,lost,covered_single
+record_012738,4,keep_one,record_012738,record_026653,lost,uncertain
+record_012738,4,keep_one,record_017237,record_026653,covered_single,covered_single
+record_012738,4,keep_one,record_048615,record_026653,lost,uncertain
+record_012738,4,vl_dedup,record_012738,record_017237 record_026653,lost,covered_single
+record_012738,4,vl_dedup,record_048615,record_017237 record_026653,lost,covered_single
+record_012738,4,vl_dedup_no_check,record_012738,record_026653,lost,uncertain
+record_012738,4,vl_dedup_no_check,record_017237,record_026653,covered_single,covered_single
+record_012738,4,vl_dedup_no_check,record_048615,record_026653,lost,uncertain
+record_013032,5,keep_one,record_013032,record_045624,lost,uncertain
+record_013032,5,keep_one,record_014235,record_045624,lost,uncertain
+record_013032,5,keep_one,record_021744,record_045624,lost,lost
+record_013032,5,keep_one,record_022161,record_045624,covered_single,covered_single
+record_013032,5,vl_dedup,record_014235,record_013032 record_021744 record_022161 record_045624,exact_repeat,exact_repeat
+record_013032,5,vl_dedup_no_check,record_014235,record_013032 record_021744 record_022161 record_045624,exact_repeat,exact_repeat
+record_013159,5,keep_one,record_013159,record_021060,lost,covered_single
+record_013159,5,keep_one,record_028943,record_021060,lost,lost
+record_013159,5,keep_one,record_037888,record_021060,lost,lost
+record_013159,5,keep_one,record_045441,record_021060,lost,lost
+record_013355,4,keep_one,record_028921,record_013355,lost,uncertain
+record_013355,4,keep_one,record_031573,record_013355,lost,covered_single
+record_013355,4,keep_one,record_035546,record_013355,lost,uncertain
+record_013355,4,vl_dedup_no_check,record_028921,record_013355 record_031573 record_035546,lost,covered_joint
+record_013411,5,keep_one,record_017890,record_013411,lost,lost
+record_013411,5,keep_one,record_030656,record_013411,lost,uncertain
+record_013411,5,keep_one,record_047273,record_013411,lost,lost
+record_013411,5,keep_one,record_048466,record_013411,lost,uncertain
+record_013411,5,vl_dedup,record_048466,record_013411 record_017890 record_030656 record_047273,exact_repeat,exact_repeat
+record_013411,5,vl_dedup_no_check,record_048466,record_013411 record_017890 record_030656 record_047273,exact_repeat,exact_repeat
+record_013564,5,keep_one,record_013564,record_025356,lost,uncertain
+record_013564,5,keep_one,record_019091,record_025356,lost,uncertain
+record_013564,5,keep_one,record_031109,record_025356,lost,lost
+record_013564,5,keep_one,record_034306,record_025356,lost,lost
+record_013659,5,keep_one,record_016859,record_013659,lost,uncertain
+record_013659,5,keep_one,record_031363,record_013659,lost,lost
+record_013659,5,keep_one,record_045004,record_013659,lost,uncertain
+record_013659,5,keep_one,record_047954,record_013659,lost,lost
+record_013659,5,vl_dedup,record_045004,record_013659 record_016859 record_031363 record_047954,exact_repeat,exact_repeat
+record_013659,5,vl_dedup_no_check,record_045004,record_013659 record_016859 record_031363 record_047954,exact_repeat,exact_repeat
+record_013729,5,keep_one,record_020559,record_013729,lost,lost
+record_013729,5,keep_one,record_033957,record_013729,lost,lost
+record_013729,5,keep_one,record_037958,record_013729,lost,lost
+record_013729,5,keep_one,record_040493,record_013729,lost,uncertain
+record_013787,5,keep_one,record_013787,record_022556,lost,lost
+record_013787,5,keep_one,record_034602,record_022556,lost,uncertain
+record_013787,5,keep_one,record_038581,record_022556,lost,uncertain
+record_013787,5,keep_one,record_045501,record_022556,lost,uncertain
+record_013874,5,keep_one,record_013874,record_031818,lost,uncertain
+record_013874,5,keep_one,record_022040,record_031818,lost,lost
+record_013874,5,keep_one,record_024253,record_031818,lost,lost
+record_013874,5,keep_one,record_026198,record_031818,lost,lost
+record_014165,5,keep_one,record_014165,record_045530,lost,lost
+record_014165,5,keep_one,record_022750,record_045530,lost,uncertain
+record_014165,5,keep_one,record_045762,record_045530,lost,uncertain
+record_014165,5,keep_one,record_045958,record_045530,lost,uncertain
+record_014165,5,vl_dedup_no_check,record_045958,record_014165 record_022750 record_045530 record_045762,lost,uncertain
+record_014299,4,keep_one,record_014299,record_021173,covered_single,covered_single
+record_014299,4,keep_one,record_049022,record_021173,lost,lost
+record_014299,4,keep_one,record_049914,record_021173,lost,covered_single
+record_014299,4,vl_dedup_no_check,record_049914,record_014299 record_021173 record_049022,lost,covered_single
+record_014504,5,keep_one,record_014504,record_039322,lost,covered_single
+record_014504,5,keep_one,record_018659,record_039322,lost,uncertain
+record_014504,5,keep_one,record_034051,record_039322,lost,lost
+record_014504,5,keep_one,record_038820,record_039322,lost,covered_single
+record_014554,5,keep_one,record_014554,record_027058,covered_single,covered_single
+record_014554,5,keep_one,record_019622,record_027058,lost,lost
+record_014554,5,keep_one,record_036554,record_027058,covered_single,covered_single
+record_014554,5,keep_one,record_044672,record_027058,lost,lost
+record_014640,5,keep_one,record_021588,record_014640,covered_single,covered_single
+record_014640,5,keep_one,record_021685,record_014640,covered_single,covered_single
+record_014640,5,keep_one,record_028591,record_014640,lost,lost
+record_014640,5,keep_one,record_048071,record_014640,covered_single,lost
+record_014681,3,keep_one,record_014681,record_045032,lost,lost
+record_014681,3,keep_one,record_027478,record_045032,lost,lost
+record_014968,4,keep_one,record_014968,record_045596,covered_single,covered_single
+record_014968,4,keep_one,record_014975,record_045596,covered_single,covered_single
+record_014968,4,keep_one,record_036388,record_045596,lost,uncertain
+record_014968,4,vl_dedup,record_014968,record_045596,covered_single,covered_single
+record_014968,4,vl_dedup,record_014975,record_045596,covered_single,covered_single
+record_014968,4,vl_dedup,record_036388,record_045596,lost,uncertain
+record_014968,4,vl_dedup_no_check,record_014968,record_045596,covered_single,covered_single
+record_014968,4,vl_dedup_no_check,record_014975,record_045596,covered_single,covered_single
+record_014968,4,vl_dedup_no_check,record_036388,record_045596,lost,uncertain
+record_015085,4,keep_one,record_015085,record_039644,lost,lost
+record_015085,4,keep_one,record_017335,record_039644,lost,uncertain
+record_015085,4,keep_one,record_036728,record_039644,lost,uncertain
+record_015193,2,keep_one,record_015193,record_017497,lost,lost
+record_015683,5,keep_one,record_015683,record_034992,lost,uncertain
+record_015683,5,keep_one,record_029474,record_034992,lost,lost
+record_015683,5,keep_one,record_032779,record_034992,lost,lost
+record_015683,5,keep_one,record_036071,record_034992,lost,covered_single
+record_015683,5,vl_dedup,record_036071,record_015683 record_029474 record_032779 record_034992,covered_joint,covered_single
+record_015683,5,vl_dedup_no_check,record_036071,record_015683 record_029474 record_032779 record_034992,covered_joint,covered_single
+record_015782,5,keep_one,record_015782,record_022140,lost,uncertain
+record_015782,5,keep_one,record_016009,record_022140,covered_single,covered_single
+record_015782,5,keep_one,record_020955,record_022140,lost,uncertain
+record_015782,5,keep_one,record_040972,record_022140,lost,uncertain
+record_015782,5,vl_dedup,record_020955,record_015782 record_016009 record_022140 record_040972,covered_joint,covered_joint
+record_015782,5,vl_dedup_no_check,record_020955,record_015782 record_016009 record_022140 record_040972,covered_joint,covered_joint
+record_015830,3,keep_one,record_015830,record_043286,lost,lost
+record_015830,3,keep_one,record_042116,record_043286,lost,lost
+record_015939,5,keep_one,record_016252,record_015939,lost,covered_single
+record_015939,5,keep_one,record_022342,record_015939,lost,uncertain
+record_015939,5,keep_one,record_023999,record_015939,lost,uncertain
+record_015939,5,keep_one,record_041813,record_015939,lost,lost
+record_016137,5,keep_one,record_016137,record_020320,lost,lost
+record_016137,5,keep_one,record_024822,record_020320,lost,lost
+record_016137,5,keep_one,record_029571,record_020320,lost,uncertain
+record_016137,5,keep_one,record_034121,record_020320,lost,lost
+record_016321,3,keep_one,record_016321,record_032772,lost,lost
+record_016321,3,keep_one,record_035619,record_032772,lost,lost
+record_016631,4,keep_one,record_017622,record_016631,lost,uncertain
+record_016631,4,keep_one,record_026695,record_016631,lost,uncertain
+record_016631,4,keep_one,record_029766,record_016631,lost,covered_single
+record_016635,5,keep_one,record_016635,record_040101,lost,lost
+record_016635,5,keep_one,record_018445,record_040101,lost,uncertain
+record_016635,5,keep_one,record_035151,record_040101,lost,covered_single
+record_016635,5,keep_one,record_049499,record_040101,lost,uncertain
+record_016635,5,vl_dedup,record_049499,record_016635 record_018445 record_035151 record_040101,exact_repeat,exact_repeat
+record_016635,5,vl_dedup_no_check,record_049499,record_016635 record_018445 record_035151 record_040101,exact_repeat,exact_repeat
+record_016639,4,keep_one,record_018358,record_016639,covered_single,covered_single
+record_016639,4,keep_one,record_023688,record_016639,covered_single,covered_single
+record_016639,4,keep_one,record_024410,record_016639,covered_single,covered_single
+record_016639,4,vl_dedup,record_023688,record_016639 record_018358 record_024410,covered_single,covered_single
+record_016639,4,vl_dedup_no_check,record_023688,record_016639 record_018358 record_024410,covered_single,covered_single
+record_017215,5,keep_one,record_017215,record_031700,lost,lost
+record_017215,5,keep_one,record_024280,record_031700,lost,lost
+record_017215,5,keep_one,record_028456,record_031700,lost,uncertain
+record_017215,5,keep_one,record_038623,record_031700,lost,lost
+record_017398,5,keep_one,record_017398,record_019113,covered_single,covered_single
+record_017398,5,keep_one,record_035905,record_019113,covered_single,covered_single
+record_017398,5,keep_one,record_041576,record_019113,lost,uncertain
+record_017398,5,keep_one,record_043262,record_019113,lost,covered_single
+record_017398,5,vl_dedup,record_017398,record_019113 record_035905 record_041576 record_043262,covered_single,covered_single
+record_017398,5,vl_dedup_no_check,record_017398,record_019113 record_035905 record_041576 record_043262,covered_single,covered_single
+record_017414,5,keep_one,record_017414,record_038678,covered_single,covered_single
+record_017414,5,keep_one,record_042326,record_038678,covered_single,covered_single
+record_017414,5,keep_one,record_048582,record_038678,covered_single,covered_single
+record_017414,5,keep_one,record_048849,record_038678,lost,covered_single
+record_017414,5,vl_dedup,record_042326,record_017414 record_038678,covered_single,covered_single
+record_017414,5,vl_dedup,record_048582,record_017414 record_038678,covered_single,covered_single
+record_017414,5,vl_dedup,record_048849,record_017414 record_038678,lost,covered_single
+record_017414,5,vl_dedup_no_check,record_017414,record_038678,covered_single,covered_single
+record_017414,5,vl_dedup_no_check,record_042326,record_038678,covered_single,covered_single
+record_017414,5,vl_dedup_no_check,record_048582,record_038678,covered_single,covered_single
+record_017414,5,vl_dedup_no_check,record_048849,record_038678,lost,covered_single
+record_017854,5,keep_one,record_017854,record_037444,covered_single,covered_single
+record_017854,5,keep_one,record_023441,record_037444,lost,covered_single
+record_017854,5,keep_one,record_025235,record_037444,lost,covered_single
+record_017854,5,keep_one,record_044250,record_037444,covered_single,covered_single
+record_017854,5,vl_dedup,record_023441,record_017854 record_025235 record_037444 record_044250,lost,lost
+record_017854,5,vl_dedup,record_044250,record_017854 record_025235 record_037444,exact_repeat,exact_repeat
+record_017854,5,vl_dedup_no_check,record_023441,record_017854 record_037444 record_044250,lost,uncertain
+record_017854,5,vl_dedup_no_check,record_025235,record_017854 record_037444 record_044250,lost,uncertain
+record_017854,5,vl_dedup_no_check,record_044250,record_017854 record_037444,exact_repeat,exact_repeat
+record_018411,5,keep_one,record_018411,record_027440,lost,uncertain
+record_018411,5,keep_one,record_025924,record_027440,lost,uncertain
+record_018411,5,keep_one,record_036383,record_027440,lost,covered_single
+record_018411,5,keep_one,record_047552,record_027440,lost,uncertain
+record_018411,5,vl_dedup,record_047552,record_018411 record_025924 record_027440 record_036383,exact_repeat,exact_repeat
+record_018411,5,vl_dedup_no_check,record_047552,record_018411 record_025924 record_027440 record_036383,exact_repeat,exact_repeat
+record_019003,4,keep_one,record_019003,record_038016,lost,uncertain
+record_019003,4,keep_one,record_019214,record_038016,lost,covered_single
+record_019003,4,keep_one,record_038203,record_038016,lost,lost
+record_019413,5,keep_one,record_019413,record_025775,lost,uncertain
+record_019413,5,keep_one,record_029019,record_025775,lost,lost
+record_019413,5,keep_one,record_043724,record_025775,lost,lost
+record_019413,5,keep_one,record_049524,record_025775,lost,lost
+record_019471,4,keep_one,record_019471,record_041614,lost,lost
+record_019471,4,keep_one,record_035635,record_041614,covered_single,covered_single
+record_019471,4,keep_one,record_039262,record_041614,lost,lost
+record_019735,5,keep_one,record_023271,record_019735,lost,lost
+record_019735,5,keep_one,record_028930,record_019735,covered_single,covered_single
+record_019735,5,keep_one,record_030745,record_019735,lost,lost
+record_019735,5,keep_one,record_048118,record_019735,lost,covered_single
+record_019842,5,keep_one,record_019842,record_048750,lost,covered_single
+record_019842,5,keep_one,record_031183,record_048750,lost,covered_single
+record_019842,5,keep_one,record_034807,record_048750,lost,covered_single
+record_019842,5,keep_one,record_035457,record_048750,lost,uncertain
+record_020641,5,keep_one,record_035225,record_020641,lost,covered_single
+record_020641,5,keep_one,record_035260,record_020641,covered_single,covered_single
+record_020641,5,keep_one,record_036785,record_020641,lost,covered_single
+record_020641,5,keep_one,record_047439,record_020641,lost,covered_single
+record_020923,5,keep_one,record_020923,record_024896,lost,lost
+record_020923,5,keep_one,record_032079,record_024896,lost,uncertain
+record_020923,5,keep_one,record_033696,record_024896,lost,covered_single
+record_020923,5,keep_one,record_035153,record_024896,covered_single,covered_single
+record_020923,5,vl_dedup,record_033696,record_020923 record_024896 record_032079 record_035153,exact_repeat,exact_repeat
+record_020923,5,vl_dedup_no_check,record_033696,record_020923 record_024896 record_032079 record_035153,exact_repeat,exact_repeat
+record_023466,5,keep_one,record_023466,record_040183,lost,uncertain
+record_023466,5,keep_one,record_029637,record_040183,lost,lost
+record_023466,5,keep_one,record_031343,record_040183,lost,uncertain
+record_023466,5,keep_one,record_045397,record_040183,lost,lost
+record_024220,5,keep_one,record_024220,record_043505,lost,lost
+record_024220,5,keep_one,record_039207,record_043505,lost,uncertain
+record_024220,5,keep_one,record_042916,record_043505,lost,uncertain
+record_024220,5,keep_one,record_046858,record_043505,lost,uncertain
+record_024220,5,vl_dedup_no_check,record_046858,record_024220 record_039207 record_042916 record_043505,lost,uncertain
+record_025067,5,keep_one,record_025067,record_048351,lost,uncertain
+record_025067,5,keep_one,record_032912,record_048351,lost,covered_single
+record_025067,5,keep_one,record_043200,record_048351,lost,uncertain
+record_025067,5,keep_one,record_046516,record_048351,lost,lost
+record_025067,5,vl_dedup,record_032912,record_025067 record_043200 record_046516 record_048351,lost,covered_single
+record_025067,5,vl_dedup_no_check,record_025067,record_048351,lost,uncertain
+record_025067,5,vl_dedup_no_check,record_032912,record_048351,lost,covered_single
+record_025067,5,vl_dedup_no_check,record_043200,record_048351,lost,uncertain
+record_025067,5,vl_dedup_no_check,record_046516,record_048351,lost,lost
+record_027572,5,keep_one,record_027572,record_035452,lost,uncertain
+record_027572,5,keep_one,record_037962,record_035452,covered_single,covered_single
+record_027572,5,keep_one,record_046462,record_035452,lost,lost
+record_027572,5,keep_one,record_047370,record_035452,lost,uncertain
+record_028053,5,keep_one,record_028382,record_028053,lost,lost
+record_028053,5,keep_one,record_035518,record_028053,lost,lost
+record_028053,5,keep_one,record_042069,record_028053,lost,lost
+record_028053,5,keep_one,record_045401,record_028053,lost,uncertain
+record_028766,5,keep_one,record_028766,record_048789,lost,lost
+record_028766,5,keep_one,record_031296,record_048789,lost,lost
+record_028766,5,keep_one,record_039928,record_048789,lost,lost
+record_028766,5,keep_one,record_048363,record_048789,lost,covered_single
+record_029624,4,keep_one,record_029624,record_047233,lost,covered_single
+record_029624,4,keep_one,record_035126,record_047233,covered_single,covered_single
+record_029624,4,keep_one,record_043165,record_047233,lost,covered_single
+record_031475,5,keep_one,record_032790,record_031475,lost,covered_single
+record_031475,5,keep_one,record_038070,record_031475,lost,lost
+record_031475,5,keep_one,record_040437,record_031475,lost,covered_single
+record_031475,5,keep_one,record_046126,record_031475,lost,lost
+record_032500,2,keep_one,record_032500,record_039505,lost,uncertain
+record_035849,5,keep_one,record_042454,record_035849,uncertain,uncertain
+record_035849,5,keep_one,record_045202,record_035849,lost,uncertain
+record_035849,5,keep_one,record_046189,record_035849,lost,lost
+record_035849,5,keep_one,record_046209,record_035849,covered_single,covered_single
+record_036732,5,keep_one,record_036732,record_037344,covered_single,covered_single
+record_036732,5,keep_one,record_038343,record_037344,lost,lost
+record_036732,5,keep_one,record_038830,record_037344,lost,lost
+record_036732,5,keep_one,record_046441,record_037344,lost,uncertain
+record_037430,4,keep_one,record_037430,record_040337,lost,lost
+record_037430,4,keep_one,record_039437,record_040337,covered_single,covered_single
+record_037430,4,keep_one,record_043109,record_040337,covered_single,covered_single
+record_037430,4,vl_dedup,record_043109,record_037430 record_039437 record_040337,covered_single,covered_single
+record_037430,4,vl_dedup_no_check,record_037430,record_040337,lost,lost
+record_037430,4,vl_dedup_no_check,record_039437,record_040337,covered_single,covered_single
+record_037430,4,vl_dedup_no_check,record_043109,record_040337,covered_single,covered_single
+record_039098,4,keep_one,record_039098,record_045576,lost,covered_single
+record_039098,4,keep_one,record_040519,record_045576,lost,lost
+record_039098,4,keep_one,record_044071,record_045576,covered_single,covered_single

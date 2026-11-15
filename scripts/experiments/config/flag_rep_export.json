@@ -1,0 +1,275 @@
+{
+ "task": "FLAG_REP_RUN",
+ "run_id": "flag_rep_export",
+ "starting_commit": "recorded-commit",
+ "sources": {
+  "combined_actions": "resources/runs/fused_main",
+  "coverage_export": "resources/runs/coverage_export",
+  "caption_downstream": "resources/runs/caption_downstream",
+  "noisy_pool": "resources/runs/caption_pilot",
+  "provenance": "Reporting only: is_copy, caption_swapped, original_level and all source fields never enter methods."
+ },
+ "rule": {
+  "name": "flag_rep",
+  "flag": "beta(record) < frozen t, strictly; equality is unflagged",
+  "representative": "Highest CLIPScore among unflagged records; tie record_id ascending. No unflagged record => no representative, all held.",
+  "export": "Use unchanged pair_action from frozen scores and parsed.decision; call local export_cluster with complete original ids, new representative, complete actions. All flagged records must be held. Preserve full ids so incident mismatch effects are identical to policy b.",
+  "singletons": "Flagged => held; otherwise retained.",
+  "invariants": [
+   "Unflagged original representative => exactly identical to policy b, all three states.",
+   "Retained, pending(held), deleted disjoint and exhaustive.",
+   "Missing required frozen pair judgment stops; no new pair inference."
+  ],
+  "coverage": "Unchanged COVERAGE_EXPORT_RUN coverage_export iterative=True. Deleted in CLIPScore descending/ID ascending order; complete retained IDs sorted; only valid covered=true deletes, else retain and extend references; held never checked or rescued. Reuse predictions only on identical COVERAGE_EXPORT_RUN text_key, invoke local text-only Qwen only for new keys."
+ },
+ "benchmark": {
+  "A1": "CPU: independently rebuild COMBINED_ACTIONS_RUN b, COVERAGE_EXPORT_RUN b_cov, apply flag_rep and flag_rep_cov on multi-record clusters; count flagged representatives/all-flagged clusters per partition; per-cluster full-state differences; frozen200clusters/953records audit fate and paper-number comparison.",
+  "threshold": 0.05960534898891063,
+  "scored_records": 38102,
+  "multi_clusters_expected": {
+   "train": 5769,
+   "validation": 1299,
+   "test": 1126
+  },
+  "A2": {
+   "rescore_seed": 20261106,
+   "rescore_n": 200,
+   "report": "Report max abs q/beta differences, then singleton flags by partition and M-source counts; singleton flags never alter A1.",
+   "singletons_expected": {
+    "train": 9217,
+    "validation": 1507,
+    "test": 1174
+   },
+   "reference": "COMBINED_ACTIONS_RUN original validation6132 CLIPScore and valid-q midrank references, frozen, never refit.",
+   "record_prompt": "Caption: {caption}\nDoes this caption correctly describe the image? Answer with yes or no.",
+   "model": "resources/models/Qwen2.5-VL-7B-Instruct",
+   "inference": {
+    "engine": "vLLM0.11.0",
+    "dtype": "float16",
+    "seed": 0,
+    "tp": 1,
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1,
+    "logprobs": 20,
+    "logprob_meaning": "Top20 token candidates at the first generated position",
+    "batch": 16,
+    "max_model_len": 8192,
+    "max_num_batched_tokens": 4096,
+    "max_num_seqs": 16,
+    "gpu_memory_utilization": 0.92,
+    "enforce_eager": true,
+    "enable_chunked_prefill": true,
+    "min_pixels": 3136,
+    "max_pixels": 802816,
+    "retry": 0
+   }
+  }
+ },
+ "downstream": {
+  "B1": "Rebuild CAPTION_DOWNSTREAM_RUN b/b_cov with exact per-ID identity before constructing new sets. Reuse frozen fusion, t, pair verdicts, groups and subsets. Report count/images/assets/copies/swapped/removed-original/per-image histogram plus flagged representatives moved to held.",
+  "threshold": 0.06547619047619047,
+  "methods": {
+   "b_fr": "flag_rep retained only",
+   "b_fr_cov": "flag_rep_cov retained only",
+   "clipscore_fr": "Remove lowest CLIPScore, tie ID ascending; count equals b_fr_cov deleted+held",
+   "random_fr": "Random(20261106).sample from sorted record IDs; same removed count"
+  },
+  "B2": {
+   "reuse": "CAPTION_DOWNSTREAM_RUN no_dedup,keep_one,semdedup,clean,b,b_cov,clipscore,random:80 existing train/evaluation receipts, no retraining except named gate.",
+   "environment": "CAPTION_DOWNSTREAM_RUN caption-env, GPT2/CLIP assets, annotations and evaluation code; FLAG_REP_RUN owns all outputs/cache paths.",
+   "retrain_gate": {
+    "method": "CAPTION_DOWNSTREAM_RUN b_cov",
+    "seed": 20261104,
+    "stop_if_absolute_CIDEr_difference_exceeds": 0.02,
+    "report": "All seven metric differences"
+   },
+   "training_order": [
+    "b_fr_cov",
+    "clipscore_fr",
+    "b_fr",
+    "random_fr"
+   ],
+   "seeds": [
+    20261104,
+    20261105,
+    20261106,
+    20261107,
+    20261108,
+    20261109,
+    20261110,
+    20261111,
+    20261112,
+    20261113
+   ],
+   "steps_each": 4370,
+   "new_training_runs": 40,
+   "gate_training_runs": 1,
+   "settings": "Identical CAPTION_DOWNSTREAM_RUN ClipCap initialization, batch, optimizer, schedule, decoding and test membership. Background process durable progress; resume exact checkpoint/stream state and completed runs."
+  },
+  "B3": {
+   "metrics": [
+    "CIDEr",
+    "BLEU-4",
+    "METEOR",
+    "SPICE",
+    "SPICE recall",
+    "CHAIR_i",
+    "CHAIR_s"
+   ],
+   "spice_recall_field": "All.re (CAPTION_DOWNSTREAM_RUN implementation correction)",
+   "main_contrasts": [
+    [
+     "keep_one",
+     "no_dedup"
+    ],
+    [
+     "semdedup",
+     "no_dedup"
+    ],
+    [
+     "clipscore_fr",
+     "no_dedup"
+    ],
+    [
+     "random_fr",
+     "no_dedup"
+    ],
+    [
+     "b_fr",
+     "no_dedup"
+    ],
+    [
+     "b_fr_cov",
+     "no_dedup"
+    ],
+    [
+     "b_fr_cov",
+     "keep_one"
+    ],
+    [
+     "b_fr_cov",
+     "semdedup"
+    ],
+    [
+     "b_fr_cov",
+     "clipscore_fr"
+    ],
+    [
+     "b_fr_cov",
+     "random_fr"
+    ],
+    [
+     "b_fr_cov",
+     "b_fr"
+    ]
+   ],
+   "additional_contrasts": [
+    [
+     "b_fr_cov",
+     "caption_downstream_b_cov"
+    ],
+    [
+     "b_fr",
+     "caption_downstream_b"
+    ],
+    [
+     "b_fr_cov",
+     "caption_downstream_clipscore"
+    ]
+   ],
+   "main_family_p": 231,
+   "additional_family_p": 63,
+   "tests": [
+    "two-sided",
+    "greater",
+    "less"
+   ],
+   "alpha": 0.05,
+   "correction": "BY separately across all231 and all63 p values; never per-metric/tail corrections.",
+   "direction": "Higher better except CHAIR_i/s; oriented differences positive=better.",
+   "flags": "P iff adjusted two-sided and greater <.05; N iff adjusted two-sided and less <.05; else S. No extra performance pass line.",
+   "report": "Means +/- sample SD, each comparison raw and oriented mean difference, count better among10 subsets, all raw/adjusted p, P/N/S counts. Clean reference excluded from comparisons."
+  }
+ },
+ "gates": {
+  "benchmark_b": {
+   "train": [
+    28160,
+    4081,
+    3579
+   ],
+   "validation": [
+    5800,
+    1115,
+    724
+   ],
+   "test": [
+    4980,
+    823,
+    738
+   ]
+  },
+  "benchmark_b_cov": {
+   "train": [
+    30058,
+    4081,
+    1681
+   ],
+   "validation": [
+    6172,
+    1115,
+    352
+   ],
+   "test": [
+    5343,
+    823,
+    375
+   ]
+  },
+  "state_order": [
+   "retained",
+   "pending",
+   "deleted"
+  ],
+  "caption_downstream": {
+   "train_records": 35208,
+   "b_retained": 25250,
+   "b_cov_retained": 27494,
+   "flagged_swapped": 6767,
+   "flagged_other": 51,
+   "all_swapped_clusters": 1162,
+   "all_swapped_cluster_flagged_representatives": 1096,
+   "identity": "Exact set of retained record IDs for each historical training set"
+  },
+  "time": {
+   "total_gpu_hours_max": 14,
+   "includes": [
+    "A2 scoring",
+    "B1 new coverage",
+    "B2 gate and40train/evals"
+   ],
+   "project_before_start": "Actual elapsed plus measured pilot estimate of all remaining GPU work; >14 stops, no subset reduction authorized.",
+   "prior_estimate_seconds_each_train_eval": 980
+  },
+  "failure_policy": "Persist failing gate evidence and elapsed time, stop dependent stages and report all unexecuted results as null; never reconcile independently computed values toward user estimates."
+ },
+ "operations": {
+  "run": "resources/runs/flag_rep_export",
+  "report": "outputs/reports/flag_rep_export",
+  "python": "resources/envs/vl-dedup/bin/python -I",
+  "gpu_lock": "resources/runs/ab_coord/gpu.lock",
+  "cpu_lock": "resources/runs/ab_coord/cpu_benchmark.lock",
+  "gpu_preflight": "After acquiring flock, record nvidia-smi before loading model.",
+  "artifact_hash_fields": "N/A: user forbids generating hashes; existing hashes may be cited without recomputation."
+ },
+ "commits": [
+  "docs(flag_rep): freeze flag-aware representative protocol",
+  "Implementation and required tests",
+  "A1 benchmark CPU results",
+  "A2 benchmark singleton scoring",
+  "results(flag_rep): flag-aware training sets",
+  "results(flag_rep): flag-aware export downstream"
+ ],
+ "known_index_scope": "Current-status/RESEARCH_LINE dated snapshot still describes downstream as unexecuted/unproven; CAPTION_DOWNSTREAM_RUN named completed receipts are the authorized input to FLAG_REP_RUN, not a paper claim update. No index or paper edits in this task."
+}

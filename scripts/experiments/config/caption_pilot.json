@@ -1,0 +1,162 @@
+{
+ "task": "NOISY_POOL_RUN",
+ "run_id": "caption_pilot",
+ "starting_commit": "recorded-commit",
+ "authorization_verbatim": [],
+ "resource_dir": "resources/runs/caption_pilot",
+ "report_dir": "outputs/reports/caption_pilot",
+ "seed": 20261102,
+ "randomness": "Python random.Random; sort integer image IDs before sample; independent Random(seed) for A, train selection, validation selection and test fact sample; noise uses separate Random(seed+1) for train and Random(seed+2) for validation",
+ "A": {
+  "source": "resources/runs/coco_scale",
+  "expected_images": 116091,
+  "expected_records": 580767,
+  "components": "vl_dedup_lr_K5_components.npy; record_id ascending, distinct from corpus feature row order",
+  "sample_images": 500,
+  "membership": "sample unique image IDs; include every global component touched by any caption of selected images, then all members of those components",
+  "reuse": "COCO_SCALE_RUN Stage A-D and CLIPScore; do not rerun",
+  "stage_E": "score all expanded records including singleton records; judge all unordered pairs in each complete component with frozen STAGE_E_CLUSTERS_RUN visual-first Qwen2.5-VL-7B, context none",
+  "stage_F": "COMBINED_ACTIONS_RUN export and RETAINED_AUDIT_RUN export_cluster policy b; representative max CLIPScore then min record_id; keep_augment closure, pending mismatch, remaining deleted",
+  "fusion_reference": "MISMATCH_SCORES_RUN validation 6132 records; fixed CLIP and valid-Pyes midrank percentile references; mean percentile",
+  "t_f": 0.05960534898891063,
+  "coverage_unit": "one sampled image per auditor request; list every deleted caption separately and the final retained captions in its complete component; ask supported/unsupported/uncertain coverage label per deleted record, allowing joint retained-caption coverage",
+  "coverage_denominator": "deleted records belonging to the 500 sampled images only; expanded other-image records are context, reported separately",
+  "coverage_aggregation": "strict: both auditors supported; loose: either supported; uncertain/missing never supported; report counts and total deleted denominator",
+  "distribution": "sampled images by retained record count, explicitly including 0 and >5 if present; pending reported separately",
+  "api_request_cap": 2000,
+  "budget": "derive actual N and sum choose(component size,2); first 32 pairs and 32 records estimate remaining compute, including model load; stop if Stage E projected GPU time exceeds 21600 seconds"
+ },
+ "B": {
+  "split_source": "https://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip :: dataset_coco.json; original or verbatim public mirror only; never synthesize",
+  "split_gate": {
+   "train_union_restval": 113287,
+   "val": 5000,
+   "test": 5000,
+   "failure": "stop and report; preserve downloaded source"
+  },
+  "exclusions": "project all COCO_SCALE_RUN source_inventory coco2017 source IDs to integer COCO image IDs; exclude from train pool; validation sampled from eligible val IDs; preserve full Karpathy test",
+  "train_images": 5000,
+  "validation_images": 1000,
+  "test_images": 5000,
+  "leakage": "before noise, require train versus validation/test and validation versus test disjoint image IDs and pHash Hamming <=2; use image content, independent of 2014/2017 split names; zero overlapping pairs required, do not replace sampled images on failure",
+  "image_mapping": "COCO image ID, not native COCO2017 split; original 2017 ZIP can supply image bytes by ID where COCO_SCALE_RUN cache excludes an image",
+  "noise": {
+   "duplicate_fraction": 0.2,
+   "copy_count": "uniform integer 1..3 for each sampled original image",
+   "edit_assignment": "shuffle copy slots, half Mild and half Strong, odd slot assigned by seeded choice",
+   "edit_source": "EDIT_STRESS_RUN build_edit_stress.parameters and transform, via baselines_surfaces S2/S4 assets",
+   "explicit_edit_interpretation": "Mild=S2, Strong=S4; baselines_surfaces contains S2/S4 rather than named Mild/Strong. This mapping is an explicit implementation assumption, not a claim about existing label names",
+   "Mild": "center crop 12% per dimension; JPEG70; brightness seeded choice .92/1.08",
+   "Strong": "center crop35%; rotation6deg expanded gray canvas; JPEG70; channel factors uniform .95..1.05; EDIT_STRESS_RUN EDIT COPY watermark; flipped=false",
+   "ncr_fraction": 0.2,
+   "ncr": "sample original image IDs independently of copy membership; seeded shuffled cycle of selected IDs assigns each donor caption bundle to next recipient, with no fixed points; copies inherit recipient's resulting caption bundle",
+   "provenance": [
+    "record_id",
+    "original_image_id",
+    "copy_index",
+    "is_copy",
+    "caption_source_image_id",
+    "caption_swapped",
+    "edit_parameters"
+   ],
+   "apply_to": "train and validation independently; test clean"
+  },
+  "arms": {
+   "No_dedup": "all noisy train records",
+   "VL_Dedup": "complete Stage A-F on train only; retained only, held/pending excluded",
+   "Clean": "original selected 5000 train images and all original captions"
+  },
+  "dedup": {
+   "scorer": "CLASSIFIER_RUN vl_dedup_lr.joblib, 11-feature adapter including SSCD, excluding same_image_asset",
+   "tau": "2/3",
+   "candidate_search": "global within each train or validation pool separately; no test candidates",
+   "K_grid": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    10,
+    "inf"
+   ],
+   "K_selection": "maximum exact pairwise graph F1 on noisy validation, visual_group=original_image_id; ties smaller K; no test read",
+   "record_score": "COMBINED_ACTIONS_RUN validation-anchored fusion using frozen original MISMATCH_SCORES_RUN empirical references",
+   "t_selection": "strict score < t; maximize exact mismatch F1 against known swapped-caption provenance on noisy validation; candidates observed validation score values and nextafter(value,+inf), plus 0 and 1; ties smaller t; freeze before train export/test evaluation",
+   "export": "COMBINED_ACTIONS_RUN policy b with selected t; same CLIP representative and keep_augment closure",
+   "graph_gate": "train complete component pairwise F1 using original_image_id >=0.9; report deleted swapped-caption count; stop without parameter revision below gate"
+  },
+  "model": {
+   "family": "ClipCap style",
+   "upstream": "https://github.com/rmokady/CLIP_prefix_caption",
+   "image_encoder": "OpenAI CLIP ViT-B/32, frozen",
+   "decoder": "GPT-2 small 124M, trainable",
+   "mapping": "MLP 512 -> 3840 -> 7680 with tanh, prefix length10",
+   "initialization": "GPT-2 language pretraining only, no COCO-trained caption checkpoint",
+   "learning_rate": 2e-05,
+   "batch_size": 40,
+   "clean_epochs": 10,
+   "optimizer": "AdamW, betas .9/.999, eps1e-8, weight_decay .01",
+   "schedule": "linear warmup5000 steps then linear decay; cap warmup at total steps",
+   "max_caption_tokens": 40,
+   "seed": 20261102,
+   "selection": "one fixed official-default-like hyperparameter configuration on Clean; no test-guided tuning",
+   "equal_steps": "S=10*floor(N_clean/40), cycle shuffled training records to S optimizer steps for every arm",
+   "equal_epochs": "also evaluate each arm checkpoint at10*floor(N_arm/40); continue to max(equal-step,equal-epoch target) in one trajectory; disclose exposure and schedule",
+   "decoding": "deterministic greedy, maximum40 tokens, stop at EOS or first period; same for all arms"
+  },
+  "evaluation": {
+   "test_selection": "none; test metrics reporting only",
+   "metrics": [
+    "CIDEr (raw pycocoevalcap scale, not x100)",
+    "BLEU-4",
+    "METEOR",
+    "SPICE if Java usable",
+    "CHAIR_i",
+    "CHAIR_s"
+   ],
+   "coco_metrics": "official pycocoevalcap, PTBTokenizer",
+   "chair": "original LisaAnne/Hallucination utils/chair.py, original COCO2014 captions/instances annotations; no substitute labels",
+   "clean_gate": "Clean test CIDEr in [0.55,1.65], predeclared factor-of-two/50%-above interpretation of approximately1.1; outside stops, no test-driven tuning; full-data public ClipCap result is only reference, not an asserted 5k expectation",
+   "fact_sample": "500 sorted-test-ID sampled images seed20261102; reference fact union from all five raw reference captions",
+   "fact_unit": "per image and auditor, request reference atomic facts plus coverage boolean per fact for all three generated captions in one request; strict/loose counts require exact fact alignment; unknown facts reported separately",
+   "api_request_cap": 2000,
+   "api_budget_includes": "every attempt, including retries; both auditors; all evaluated conditions sharing one image request",
+   "auditors": [
+    "gpt-6.1-sol",
+    "gpt-5.6-terra"
+   ]
+  },
+  "timing_gate": "first32 Stage E pairs/records and first100 training optimizer steps; measure model load and project each complete stage/job; stop if Stage E or one full training trajectory exceeds21600 GPU seconds; estimates are not measurements of completed runs"
+ },
+ "inference": {
+  "model": "resources/models/Qwen2.5-VL-7B-Instruct",
+  "pair_prompt": "STAGE_E_CLUSTERS_RUN visual-first, no context",
+  "record_prompt": "Caption: {caption}\nDoes this caption correctly describe the image? Answer with yes or no.",
+  "engine": "vLLM 0.11.0, float16, eager, seed0, max_model_len8192, max_num_batched_tokens4096, max_num_seqs16, batch16",
+  "pixels": [
+   3136,
+   802816
+  ],
+  "temperature": 0,
+  "pair_max_tokens": 384,
+  "record_max_tokens": 1,
+  "record_logprobs": 20,
+  "retry": 0,
+  "invalid": "preserve raw and terminal status; Pyes invalid effective percentile1.0; never silently drop from denominators"
+ },
+ "audits": {
+  "human_labels": "never fill or infer",
+  "api_attempts": "cap includes each actual request; save raw per attempt and counts; no new calls on exhausted cap",
+  "uncertainty": "AI strict/loose counts are aggregation rules, not human truth or confidence bounds"
+ },
+ "reporting": {
+  "artifacts": [
+   "results.json"
+  ],
+  "unrun": "null with reason, never zero performance",
+  "timing": "GPU model, wall clock, lock wait, actual compute vs projection, API requests separately",
+  "historical_hash_fields": "N/A: no new file hashes by explicit user instruction",
+  "stop": "preserve failures and completed partial outputs; report exact failed gate without retuning"
+ }
+}

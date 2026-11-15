@@ -1,0 +1,152 @@
+{
+ "task": "SCALE_BASELINES_RUN",
+ "run_id": "scale_baselines",
+ "execution_authorized": true,
+ "methods": {
+  "data_juicer": {
+   "package": "py-data-juicer==1.5.3",
+   "operator": "official ImageDeduplicator(method=phash,consider_text=False)",
+   "grouping": "native hash equality; official compute_hash for every record including repeated image paths",
+   "threads": 8
+  },
+  "semhash": {
+   "package": "semhash==0.4.1",
+   "vicinity": "0.4.6",
+   "threshold": 0.9,
+   "backend": "basic",
+   "columns": [
+    "image",
+    "text"
+   ],
+   "fusion": "L2(image)/sqrt(2), L2(text)/sqrt(2), concat, L2",
+   "grouping": "native filtered exact and similarity relations unioned; preserve native selected/filtered",
+   "threads": 8
+  },
+  "semdedup": {
+   "implementation": "GRAPH_SURFACES_RUN kmeans + all within-cell cosine>=0.995 pairs CC",
+   "k": 50,
+   "epsilon": 0.005,
+   "spherical": true,
+   "seed": 20261048,
+   "iterations": 50,
+   "redos": 1,
+   "threads": 4
+  },
+  "caption_minhash": {
+   "operator": "Data-Juicer 1.5.3 default DocumentMinhashDeduplicator",
+   "tokenization": "space",
+   "window": 5,
+   "lowercase": true,
+   "permutations": 256,
+   "jaccard_threshold": 0.7,
+   "grouping": "upstream LSH union-find",
+   "threads": 4
+  }
+ },
+ "inputs": {
+  "original": "runs/pair_features/{public_manifest.parquet,features/clip/{image_emb,text_emb}.npy}",
+  "coco": "runs/coco_scale/{corpus.parquet,CLIP_image.npy,CLIP_text.npy}",
+  "sop": "runs/sop_scale/corpus.parquet; successful embeddings under stage_a_amendment2/"
+ },
+ "evaluation": {
+  "method": "GRAPH_SURFACES_RUN pairwise integer contingency; global graph then project endpoints; ungrouped singleton",
+  "original_gate": "50000 global nodes; M-excluded test 5998 records / 17985003 pairs / 8701 positives",
+  "coco": "all records; truth visual_group_id",
+  "sop": [
+   "all records",
+   "evaluation_partition=test (lamp) endpoints on global graph"
+  ],
+  "alignment": "new components in corpus/input row order with record_ids sidecar; cached COCO_SCALE_RUN/SOP_SCALE_RUN components in lexicographically sorted record_id order",
+  "metrics": [
+   "records",
+   "pairs",
+   "tp",
+   "fp",
+   "fn",
+   "tn",
+   "exact_f1",
+   "f1",
+   "clusters",
+   "largest_cluster",
+   "delete_if_one_per_cluster"
+  ],
+  "deletion_semantics": "hypothetical n-clusters, not a semantic deletion authorization or enacted export"
+ },
+ "gates": {
+  "comparison": "independently computed integer counts where supplied; F1 rounded to six decimals equals supplied budget; stop on any mismatch",
+  "original": {
+   "data_juicer": {
+    "f1": 1.0
+   },
+   "semhash": {
+    "f1": 0.375332
+   },
+   "semdedup": {
+    "f1": 1.0
+   },
+   "caption_minhash": {
+    "tp": 328,
+    "fp": 57,
+    "fn": 8373,
+    "f1": 0.072199
+   }
+  },
+  "coco": {
+   "B2_Kinf": {
+    "f1": 0.99696,
+    "fp": 7090
+   },
+   "B6_Kinf": {
+    "f1": 0.986643,
+    "fp": 31475
+   },
+   "vl_dedup_lr_K5": {
+    "tp": 1160359,
+    "fp": 371,
+    "fn": 2114,
+    "f1": 0.99893
+   }
+  },
+  "sop_test": {
+   "B2_Kinf": {
+    "f1": 0.065704,
+    "tp": 915
+   },
+   "B6_Kinf": {
+    "f1": 0.148468,
+    "tp": 2181
+   },
+   "vl_dedup_lr_K8": {
+    "tp": 4852,
+    "fp": 2139,
+    "fn": 22012,
+    "f1": 0.286634
+   }
+  }
+ },
+ "cost": {
+  "lock": "resources/runs/ab_coord/cpu_benchmark.lock",
+  "lock_wait": "separately recorded; excluded from wall/CPU",
+  "execution": "fresh single process per corpus/method; CUDA_VISIBLE_DEVICES empty; no gpu.lock",
+  "measurement": "perf_counter wall, process_time CPU, resource.ru_maxrss KiB lifetime process peak; phases read/index_or_cluster/dedup/write separately; evaluation separate",
+  "stage_a": "all new methods reuse frozen embeddings; DJ image decode+pHash included; caption MinHash hash calculation included",
+  "historical": "B stage plus CD stage wall for existing pipeline scope; max stage RSS, never sum RSS; whole CD includes more than selected method and is explicitly labeled",
+  "budget": "after gates run SOP four methods once; extrapolate method read/index/dedup/write by COCO/SOP record ratio; stop if gate locked time + SOP actual + projected COCO + evaluation exceeds 14400 seconds; preserve failures and receipts"
+ },
+ "order": [
+  "commit protocol only",
+  "cached COCO/SOP gates",
+  "rerun original four baselines gates",
+  "SOP four methods once",
+  "budget gate",
+  "COCO four methods once"
+ ],
+ "checks": [
+  "tests/test_scale_baselines.py",
+  "tests/test_coco_scale.py",
+  "tests/test_sop_scale.py",
+  "tests/test_graph_baselines.py",
+  "git diff --check"
+ ],
+ "no_new_file_digest_manifest": true
+}

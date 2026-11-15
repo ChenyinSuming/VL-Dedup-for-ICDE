@@ -1,0 +1,14 @@
+The data in this repository (the folders benchmark/, artifacts/ and results/) is
+licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+You may share and adapt the data for any purpose, provided that you give appropriate credit,
+provide a link to the license, and indicate if changes were made.
+
+License text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Third-party content:
+- COCO captions are from the COCO 2017 release (https://cocodataset.org), distributed by the
+  COCO Consortium under CC BY 4.0.
+- No image is included. COCO images keep the terms of their Flickr owners. Stanford Online
+  Products images belong to their owners and are distributed by Stanford University for research
+  (https://cvgl.stanford.edu/projects/lifted_struct/).

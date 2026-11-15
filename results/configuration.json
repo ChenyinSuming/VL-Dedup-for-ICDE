@@ -1,0 +1,25 @@
+{
+ "features": [
+  "clip_image",
+  "clip_text",
+  "phash_similarity",
+  "raw_text_equal",
+  "normalized_text_equal",
+  "clipscore_min",
+  "clipscore_mean",
+  "clipscore_difference",
+  "cross_clip_min",
+  "cross_clip_mean",
+  "sscd_cosine"
+ ],
+ "n_features": 11,
+ "tau_vl_dedup": 0.6666666666666666,
+ "tau_hgb": 1.0,
+ "k_selected": 5,
+ "mismatch_threshold_t": 0.05960534898891063,
+ "pair_gpu_seconds": 0.437,
+ "record_gpu_seconds": 0.0661,
+ "gpu": "RTX 4090",
+ "cpu_threads": 8,
+ "timing_repeats": 3
+}

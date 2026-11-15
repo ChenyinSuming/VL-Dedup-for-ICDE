@@ -1,0 +1,14 @@
+statistic,full,test
+pairs_L0/L2,52618,7941.0
+pairs_L3,5037,760.0
+pairs_M,3599,543.0
+pairs_L1,4481,634.0
+pairs_HN,1053,159.0
+pairs_all,66788,10037.0
+records,50000,
+unique_split_keys,7208,
+partition_mismatches,0,
+split_key_crossings,0,
+records_train,35820,
+records_validation,7639,
+records_test,6541,

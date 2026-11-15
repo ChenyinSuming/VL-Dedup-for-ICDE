@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "If you use this code or VL-DedupBench, please cite the paper."
+title: "VL-Dedup: Graded Multimodal Entity Resolution for Image-Text Data Deduplication"
+type: software
+license: MIT
+authors:
+  - family-names: Liu
+    given-names: Zhenxi
+  - family-names: Chen
+    given-names: Guanze
+  - family-names: Yu
+    given-names: Dehui
+  - family-names: Wang
+    given-names: Xingyu
+  - family-names: Hou
+    given-names: Bingxu
+  - family-names: Li
+    given-names: Chengwei
+  - family-names: Ma
+    given-names: Tao
+  - family-names: Wang
+    given-names: Ke
+  - family-names: Yuan
+    given-names: Gongsheng
+repository-code: "https://github.com/ChenyinSuming/VL-Dedup-for-ICDE"
+preferred-citation:
+  type: article
+  title: "VL-Dedup: Graded Multimodal Entity Resolution for Image-Text Data Deduplication"
+  authors:
+    - family-names: Liu
+      given-names: Zhenxi
+    - family-names: Chen
+      given-names: Guanze
+    - family-names: Yu
+      given-names: Dehui
+    - family-names: Wang
+      given-names: Xingyu
+    - family-names: Hou
+      given-names: Bingxu
+    - family-names: Li
+      given-names: Chengwei
+    - family-names: Ma
+      given-names: Tao
+    - family-names: Wang
+      given-names: Ke
+    - family-names: Yuan
+      given-names: Gongsheng
+  journal: "Under review"
+  year: 2026

@@ -1,0 +1,284 @@
+{
+ "run_id": "k_rules",
+ "version": 1,
+ "base": "recorded-commit",
+ "authorization_quotes": [],
+ "scope": "CPU-only frozen-edge Stage D and integer counting diagnostic",
+ "settings": [
+  {
+   "setting": 1,
+   "model": "vl_dedup_lr",
+   "surface": "original",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 2,
+   "model": "vl_dedup_lr",
+   "surface": "S4",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 3,
+   "model": "vl_dedup_lr",
+   "surface": "MV",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 4,
+   "model": "vl_dedup_lr",
+   "surface": "large_entities",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 5,
+   "model": "hgb",
+   "surface": "original",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 6,
+   "model": "hgb",
+   "surface": "S4",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 7,
+   "model": "hgb",
+   "surface": "MV",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 8,
+   "model": "hgb",
+   "surface": "large_entities",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 9,
+   "model": "vl_dedup_lr",
+   "surface": "sop_scale",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 10,
+   "model": "hgb",
+   "surface": "sop_scale",
+   "validation": "validation",
+   "test": "test"
+  },
+  {
+   "setting": 11,
+   "model": "vl_dedup_lr",
+   "surface": "coco_scale",
+   "validation": null,
+   "test": "all"
+  },
+  {
+   "setting": 12,
+   "model": "hgb",
+   "surface": "coco_scale",
+   "validation": null,
+   "test": "all"
+  }
+ ],
+ "edges": {
+  "vl_dedup_lr_threshold": "2/3",
+  "hgb_threshold": "1.0",
+  "order": [
+   "calibrated descending",
+   "raw descending",
+   "low endpoint ID ascending",
+   "high endpoint ID ascending"
+  ],
+  "loaders": [
+   "run_graph_baselines.inputs",
+   "run_coco_scale.positive_edges"
+  ],
+  "graph": "run_e3_component_cap.build_graph, global full membership, including M",
+  "metrics": "run_graph_baselines.evaluate/pairwise_counts/structure; run_coco_scale.graph_metrics; no rewritten evaluator"
+ },
+ "entity_sizes": {
+  "partitions": [
+   "validation",
+   "test"
+  ],
+  "coco_partition": "all (no validation)",
+  "labels": {
+   "GRAPH_SURFACES_RUN": "visual_group_id",
+   "SOP": "official product visual_group_id",
+   "COCO": "split:image_id"
+  },
+  "distributions": [
+   "all",
+   "non_M"
+  ],
+  "statistics": "only entities size >=2 in the specified counting convention",
+  "max": "largest size",
+  "p95_entity": "nearest rank ceil(95*m/100), one vote per entity",
+  "p95_record": "nearest rank ceil(95*sum(size)/100), size votes per entity",
+  "selection_basis": "all; additionally report non_M statistics if different; M remains in global graph"
+ },
+ "K_rules": {
+  "paper_grid": [
+   2,
+   4,
+   5,
+   8,
+   16,
+   32,
+   64,
+   128,
+   256,
+   512,
+   1024,
+   2048,
+   4096,
+   8192,
+   16384,
+   "inf"
+  ],
+  "dense_grid": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49,
+   50,
+   51,
+   52,
+   53,
+   54,
+   55,
+   56,
+   57,
+   58,
+   59,
+   60,
+   61,
+   62,
+   63,
+   64,
+   128,
+   256,
+   512,
+   1024,
+   2048,
+   4096,
+   8192,
+   16384,
+   "inf"
+  ],
+  "val_grid": "max exact validation pairwise F1, smaller K breaks ties",
+  "val_dense": "same on dense grid",
+  "max/p95_entity/p95_record": "exact validation all entity statistic; COCO all records",
+  "prior_2": 2,
+  "prior_5": 5,
+  "prior_inf": "inf",
+  "test_best": "report-only test maximum on authorized dense grid, smaller K breaks ties",
+  "COCO": {
+   "grid": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    "inf"
+   ],
+   "val_grid": 5,
+   "val_dense": null,
+   "test_best": "report-only over COCO grid"
+  }
+ },
+ "gates": {
+  "test_counts": "all supplied TP/FP/FN checked exactly; F1 checked against six-decimal supplied references",
+  "validation_selection": "settings1-8:5 except large_entities64; SOP8",
+  "time": "LR original K2..64 complete validation curve; conservative work-weight extrapolation of all settings and both partitions; stop if >7200 seconds",
+  "failure": "persist receipt and stop without fitting results to references"
+ },
+ "ordering": [
+  "protocol document-only commit",
+  "reference-count gates and timing gate",
+  "validation curves and entity statistics",
+  "selection_frozen commit",
+  "test curves and rule comparisons",
+  "tests and final report commit"
+ ],
+ "metrics": [
+  "TP",
+  "FP",
+  "FN",
+  "TN",
+  "exact F1",
+  "F1",
+  "global clusters",
+  "global max cluster",
+  "global U=sum C(cluster_size,2)",
+  "delta F1 vs val_grid",
+  "U ratio vs val_grid"
+ ],
+ "lock": "resources/runs/ab_coord/cpu_benchmark.lock",
+ "constraints": [
+  "no new hashes; immutable source resources",
+  "test gate reads only predefined references, never selects K"
+ ],
+ "identity_hashes": "No new hashes generated; source identities inherited from named source protocols/receipts",
+ "source_reports": [
+  "graph_baselines/selection_frozen.json",
+  "sop_scale/",
+  "coco_scale/"
+ ]
+}

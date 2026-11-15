@@ -1,0 +1,76 @@
+{
+  "run_id": "ablation_density",
+  "groups": {
+    "SSCD": [
+      "sscd_cosine"
+    ],
+    "pHash": [
+      "phash_similarity"
+    ],
+    "CLIP_image": [
+      "clip_image"
+    ],
+    "text": [
+      "clip_text",
+      "raw_text_equal",
+      "normalized_text_equal"
+    ],
+    "crossmodal": [
+      "clipscore_min",
+      "clipscore_mean",
+      "clipscore_difference",
+      "cross_clip_min",
+      "cross_clip_mean"
+    ]
+  },
+  "variants": [
+    "classifier",
+    "without_SSCD",
+    "without_pHash",
+    "without_CLIP_image",
+    "without_text",
+    "without_crossmodal",
+    "image_only",
+    "text_only"
+  ],
+  "density": {
+    "K": [
+      2,
+      3,
+      4,
+      5,
+      8
+    ],
+    "rho": [
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "rule": "Scan all classifier LR edges with calibrated>=tau in visual_classifier order. Merge A,B when |A|+|B|<=K or e(A,B)/(|A|*|B|)>=rho. e counts all threshold-positive edges on the surface, including not-yet-scanned edges. Canonical undirected unique edge count. Same-root no operation. Keep all nodes and paths including M.",
+    "selection": "Original validation only; maximum exact non-M exhaustive pairwise F1, ties larger rho then smaller K. Expanded validation curve is descriptive only.",
+    "test_surfaces": [
+      "original",
+      "mixed",
+      "mild",
+      "strong",
+      "MV",
+      "expanded"
+    ],
+    "baseline_K": 5,
+    "baseline_Kdagger": {
+      "original": 5,
+      "mixed": 5,
+      "mild": 5,
+      "strong": 5,
+      "MV": 5,
+      "expanded": 64
+    },
+    "U": "All unordered within-component pairs, including M and across partitions; additionally report within-partition differences. Compare component membership sets, not numeric label identity; count reference-only/new-only components separately."
+  }
+}
